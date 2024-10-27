@@ -1,4 +1,4 @@
-#include "libft.h" // assuming ft_substr and ft_calloc are in libft.h
+#include "libft.a" // assuming ft_substr and ft_calloc are in libft.h
 
 // void test_ft_substr(char *s, unsigned int start, size_t len, const char *expected)
 // {
