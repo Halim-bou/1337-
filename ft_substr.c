@@ -1,22 +1,22 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abelboua <abelboua@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: abelboua <abelboua@student.1337.ma>        #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/25 19:37:29 by abelboua          #+#    #+#             */
-/*   Updated: 2024/10/25 21:23:22 by abelboua         ###   ########.fr       */
+/*   Created: 2024-10-28 13:45:19 by abelboua          #+#    #+#             */
+/*   Updated: 2024-10-28 13:45:19 by abelboua         ###   ########.ma       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "libft.h"
 
-char *ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	unsigned int	i;
 	char			*p;
-	size_t	s_len;
+	size_t			s_len;
 
 	i = 0;
 	p = NULL;
