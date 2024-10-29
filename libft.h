@@ -7,6 +7,12 @@
 #include <unistd.h>
 #include <fcntl.h>
 
+typedef struct	s_list
+{
+	void	*content;
+	struct s_list	*next;
+}	t_list;
+
 
 /* functions Helper */
 int	ft_isspace(int c);
