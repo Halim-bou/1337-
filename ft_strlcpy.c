@@ -19,7 +19,7 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 
 	i = 0;
 	if (size == 0)
-		return (ft_strlen((char *)src));
+		return (ft_strlen(src));
 	if (ft_strlen((char *)src) >= size)
 	{
 		real_size = size - 1;
