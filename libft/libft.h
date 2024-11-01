@@ -16,7 +16,6 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-
 /* Linked liste structer */
 typedef struct s_list
 {

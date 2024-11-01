@@ -5,31 +5,50 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: abelboua <abelboua@student.1337.ma>        #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-10-28 13:44:24 by abelboua          #+#    #+#             */
-/*   Updated: 2024-10-28 13:44:24 by abelboua         ###   ########.ma       */
+/*   Created: 2024-10-31 17:28:31 by abelboua          #+#    #+#             */
+/*   Updated: 2024-10-31 17:28:31 by abelboua         ###   ########.ma       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	count_words(char const *s, char c)
+static int	count_words(char const *s, char c)
 {
 	size_t	i;
-	char	*ptr;
 
 	i = 0;
-	ptr = ft_strtrim(s, &c);
-	if (!ptr)
+	if (!*s)
 		return (0);
-	while (*ptr)
+	while (*s)
 	{
-		if (*ptr == c)
+		while (*s == c)
+			s++;
+		if (*s)
 			i++;
-		while (*ptr == c)
-			ptr++;
-		ptr++;
+		while (*s && *s != c)
+			s++;
 	}
 	return (i + 1);
+}
+
+static void	free_all(char **arr, int last)
+{
+	while (last >= 0)
+	{
+		free(arr[last]);
+	}
+	free(arr);
+}
+
+static char	*full_arr(char **arr, int j, size_t i, const char *s)
+{
+	arr[j] = ft_substr(s, 0, i);
+	if (!arr[j])
+	{
+		free_all(arr, j - 1);
+		return (NULL);
+	}
+	return (arr[j]);
 }
 
 char	**ft_split(char const *s, char c)
@@ -38,7 +57,6 @@ char	**ft_split(char const *s, char c)
 	int		j;
 	char	**arr;
 
-	i = 0;
 	j = 0;
 	arr = malloc(sizeof(char *) * (count_words(s, c) + 1));
 	if (!arr)
@@ -52,7 +70,8 @@ char	**ft_split(char const *s, char c)
 			i++;
 		if (i > 0)
 		{
-			arr[j] = ft_substr(s, 0, i);
+			if (!(full_arr(arr, j, i, s)))
+				return (NULL);
 			j++;
 		}
 		s += i;
