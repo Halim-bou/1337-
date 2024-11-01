@@ -29,6 +29,7 @@ int	count_words(char const *s, char c)
 			ptr++;
 		ptr++;
 	}
+	free(ptr);
 	return (i + 1);
 }
 
@@ -53,6 +54,8 @@ char	**ft_split(char const *s, char c)
 		if (i > 0)
 		{
 			arr[j] = ft_substr(s, 0, i);
+			if (!arr[j])
+				free(arr[j]);
 			j++;
 		}
 		s += i;
