@@ -24,7 +24,10 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, &line, 0) < 0)
 		return (NULL);
-	buffer_to_nodes(fd, &lst);
+	read_buffer(fd, lst);
+	if (!lst)
+		return (NULL);
+	concat_line(line, lst);
 
 }
 
@@ -36,13 +39,54 @@ char	*get_next_line(int fd)
  * return: Nothing.
  */
 
-void	buffer_to_nodes(int fd, t_list	**lst)
+void	read_buffer(int fd, t_list	*lst)
 {
 	char	*buff;
 	int		done;
+	t_list	*p;
 
-	done = 1
-	while (!(line_breaks(&buff)) || done == 0)
+	done = 1;
+	buff = NULL;
+	p = lst;
+	while (!(line_breaks(p)) || done == 0)
 	{
+		buff = malloc(sizeof(char *) * (BUFFER_SIZE + 1));
+		if (!buff)
+			return (NULL);
+		done = read(fd, buff, BUFFER_SIZE);
+		if (done < 0)
+		{
+			free(buff);
+			return (NULL);
+		}
+		p = ft_lstlast(lst);
+		p->next = malloc(sizeof(t_list));
+		if (!p->next)
+			return (NULL);
+		p = p->next;
+		p->content = buff;
+		p->next = NULL;
 	}
+}
+
+/**
+ * concat_line - concatinat all node content tell the end of line or new line
+ * line:	pointer to string where to conat he new line
+ * lst:		head of linked list
+ * return:	nothing to return;
+ */
+
+void	concat_line(char *line, t_list *lst)
+{
+	t_list	*p;
+
+	p = lst;
+	while (p->next != NULL)
+	{
+		line = ft_strjoin(line, p->next->content);
+		if (!line)
+			return (NULL);
+		p = p->next;
+	}
+	line = ft_strjoin(line, fix_str(p->next->content));
 }

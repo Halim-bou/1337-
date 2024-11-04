@@ -20,13 +20,18 @@
 
 typedef struct	s_list
 {
-	void		*content;
+	char		*content;
 	struct s_list	*next;
 }	t_list;
 
 char	*get_next_line(int fd);
-int	line_breaks(char **line);
-void	buffer_to_nodes(int fd, t_list	**lst);
+int		line_breaks(t_list *lst);
+t_list	*ft_lstlast(t_list *lst);
+char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strdup(const char *str);
+char	*fix_str(t_list *lst);
+void	read_buffer(int fd, t_list	*lst);
+void	concat_line(char *line, t_list *lst)
 
 #endif
 #endif
