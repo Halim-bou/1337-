@@ -58,3 +58,65 @@ ssize_t	ft_strlen(char *s)
 		len++;
 	return (len);
 }
+
+/**
+ * free_list - function to free all linked list.
+ * lst: list to be freed
+ * Return: Nothing.
+ */
+
+void	free_list(t_list *lst)
+{
+	t_list	*ptr;
+
+	while (lst)
+	{
+		ptr = lst;
+		free(lst->content);
+		lst = lst->next;
+		free(ptr);
+	}
+	lst = NULL;
+}
+
+/**
+ * ft_lstlast - function that return addresse to last-
+ * node in linked list.
+ * lst: head pointer of linked list.
+ * Return : addresse of last node reached or NULL.
+ */
+
+t_list	*ft_lstlast(t_list **lst)
+{
+	if (!*lst)
+		return (NULL);
+	while ((*lst)->next != NULL)
+		(*lst) = (*lst)->next;
+	return (*lst);
+}
+
+/**
+ * newline_exist - function that check if there-
+ * is any newline in last node added the linked list.
+ * lst: pointer to head of linked list.
+ * return:  1 if newline exist in the node content else return 0.
+ */
+
+int	newline_exist(t_list *lst)
+{
+	ssize_t	i;
+
+	i = 0;
+	if (!lst)
+		return (0);
+	lst = ft_lstlast(&lst);
+	if (!lst->content)
+		return (0);
+	while (lst->content[i])
+	{
+		if (lst->content[i] == '\n')
+			return (1);
+		i++;
+	}
+	return (0);
+}
