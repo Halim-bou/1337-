@@ -29,12 +29,12 @@ char	*get_next_line(int fd)
 	line = NULL;
 	read_store(fd, &lst);
 	if (!lst)
-		return NULL;
+		return (NULL);
 	assemble_line(lst, &line);
 	correct_list(&lst);
 	if (line[0] == '\0')
 	{
-		free_list(lst);
+		free_list(lst);/////////
 		lst = NULL;
 		free(line);
 		return (NULL);
@@ -52,11 +52,11 @@ char	*get_next_line(int fd)
 
 void	read_store(int fd, t_list **lst)
 {
-	char	*buff;
+	char		*buff;
 	ssize_t		size;
 
 	size = 1;
-	while (!(newline_exist(*lst)) && size != 0)
+	while (!(newline_exist(*lst)) && size != 0)//////////
 	{
 		buff = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 		if (!buff)
@@ -81,6 +81,7 @@ void	read_store(int fd, t_list **lst)
  * size: size of line readed.
  * Return: Nothing.
  */
+
 void	add_buffer(t_list *lst, char *buff, ssize_t size)
 {
 	t_list	*n_node;
@@ -101,7 +102,7 @@ void	add_buffer(t_list *lst, char *buff, ssize_t size)
 		i++;
 	}
 	n_node->content[i + 1] = '\0';
-	last_node = ft_lstlast(lst);
+	last_node = ft_lstlast(lst);////////
 	last_node->next = n_node;
 }
 
@@ -117,6 +118,7 @@ void	assemble_line(t_list *lst, char **line)
 {
 	ssize_t	i;
 	ssize_t	j;
+
 	if (!lst)
 		return ;
 	*line = allocate_line(&lst);
@@ -133,6 +135,46 @@ void	assemble_line(t_list *lst, char **line)
 			j++;
 		}
 		if (lst->content[i] == '\n')
-			(*line)[j] = lst->content[]
+		{
+			(*line)[j] = lst->content[i];
+			break ;
+		}
 	}
+	(*line)[j + 1] = '\0';
+}
+
+/**
+ * correct_list - function to delete and free all nodes tell the last
+ * node contine newline and fix the string buy removig all characters
+ * coming before newline and newline included.
+ * lst: pointer to head of linked list.
+ * Return: Nothing
+ */
+
+void	correct_list(t_list **lst)
+{
+	t_list	*ptr;
+	ssize_t	i;
+	ssize_t	j;
+	char	*str;
+
+	while ((*lst)->next != NULL)
+	{
+		ptr = *lst;
+		free((*lst)->content);
+		(*lst) = (*lst)->next;
+		free(ptr);
+	}
+	i = 0;
+	while ((*lst)->content[i] != '\n')
+		i++;
+	str = malloc(sizeof(char) * (ft_strlen((*lst)->content) - i + 1));
+	if (!str)
+		return ;
+	j = 0;
+	while ((*lst)->content[++i])
+		str[j++] = (*lst)->content[i];
+	str[++j] = '\0';
+	free((*lst)->content);
+	(*lst)->content = str;
 }
