@@ -30,7 +30,6 @@ char	*get_next_line(int fd)
 	read_store(fd, &lst);
 	if (!lst)
 		return (NULL);
-	printf("assemble line\n");
 	assemble_line(lst, &line);
 	correct_list(&lst);
 	if (line[0] == '\0')
@@ -57,7 +56,7 @@ void	read_store(int fd, t_list **lst)
 	ssize_t		size;
 
 	size = 1;
-	while (!(newline_exist(*lst)) && size != 0)
+	while (!(newline_exist(*lst)) && size > 0)
 	{
 		buff = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 		if (!buff)
@@ -69,7 +68,7 @@ void	read_store(int fd, t_list **lst)
 			return ;
 		}
 		buff[size] = '\0';
-		add_buffer(*lst, buff, size);
+		add_buffer(lst, buff, size);
 		free(buff);
 	}
 }
@@ -83,7 +82,7 @@ void	read_store(int fd, t_list **lst)
  * Return: Nothing.
  */
 
-void	add_buffer(t_list *lst, char *buff, ssize_t size)
+void	add_buffer(t_list **lst, char *buff, ssize_t size)
 {
 	t_list	*n_node;
 	t_list	*last_node;
@@ -106,10 +105,13 @@ void	add_buffer(t_list *lst, char *buff, ssize_t size)
 		i++;
 	}
 	n_node->content[i] = '\0';
-	if (lst == NULL)
-		lst = n_node;
-	last_node = ft_lstlast(&lst);
-	last_node->next = n_node;
+	if (*lst == NULL)
+	{
+		*lst = n_node;
+		return ;
+	}
+		last_node = ft_lstlast(*lst);
+		last_node->next = n_node;
 }
 
 /**
@@ -124,29 +126,28 @@ void	assemble_line(t_list *lst, char **line)
 {
 	ssize_t	i;
 	ssize_t	j;
+	t_list	*ptr;
 
-	if (!lst)
+	ptr = lst;
+	if (lst == NULL)
 		return ;
 	*line = allocate_line(&lst);
 	if (!*line)
 		return ;
-	i = 0;
-	while (lst)
+	j = 0;
+	while (ptr)
 	{
-		j = 0;
-		while (lst->content[i] || lst->content[i] != '\n')
+		i = 0;
+		while (ptr->content[i] && ptr->content[i] != '\n')
+			(*line)[j++] = ptr->content[i++];
+		if (ptr->content[i] == '\n')
 		{
-			(*line)[j] = lst->content[i];
-			i++;
-			j++;
-		}
-		if (lst->content[i] == '\n')
-		{
-			(*line)[j] = lst->content[i];
+			(*line)[j++] = '\n';
 			break ;
 		}
+		ptr = ptr->next;
 	}
-	(*line)[j + 1] = '\0';
+	(*line)[j] = '\0';
 }
 
 /**
@@ -167,12 +168,14 @@ void	correct_list(t_list **lst)
 	while ((*lst)->next != NULL)
 	{
 		ptr = *lst;
-		free((*lst)->content);
+		free(ptr->content);
 		(*lst) = (*lst)->next;
 		free(ptr);
 	}
 	i = 0;
 	while ((*lst)->content[i] && (*lst)->content[i] != '\n')
+		i++;
+	if ((*lst)->content[i] == '\n')
 		i++;
 	str = malloc(sizeof(char) * (ft_strlen((*lst)->content) - i + 1));
 	if (!str)

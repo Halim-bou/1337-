@@ -30,13 +30,13 @@ typedef struct	s_list
 char	*get_next_line(int fd);
 void	correct_list(t_list **lst);
 void	assemble_line(t_list *lst, char **line);
-void	add_buffer(t_list *lst, char *buff, ssize_t size);
+void	add_buffer(t_list **lst, char *buff, ssize_t size);
 void	read_store(int fd, t_list **lst);
 /* Function Helper */
 ssize_t	ft_strlen(char *s);
 char	*allocate_line(t_list **lst);
 int	newline_exist(t_list *lst);
-t_list	*ft_lstlast(t_list **lst);
+t_list	*ft_lstlast(t_list *lst);
 void	free_list(t_list *lst);
 
 #endif

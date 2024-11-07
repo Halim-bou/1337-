@@ -23,19 +23,22 @@ char	*allocate_line(t_list **lst)
 	ssize_t	len;
 	ssize_t	i;
 	char	*line;
+	t_list	*ptr;
 
 	len = 0;
 	i = 0;
+	ptr = *lst;
 	if (!lst || !*lst)
 		return (NULL);
-	while (*lst)
+	while (ptr)
 	{
-		while((*lst)->content[i] != '\n')
+		i = 0;
+		while (ptr->content[i] && ptr->content[i] != '\n')
 		{
 			len++;
 			i++;
 		}
-		*lst = (*lst)->next;
+		ptr = ptr->next;
 	}
 	line = malloc(sizeof(char) * len + 1);
 	if (!line)
@@ -51,7 +54,7 @@ char	*allocate_line(t_list **lst)
 
 ssize_t	ft_strlen(char *s)
 {
-	ssize_t len;
+	ssize_t	len;
 
 	len = 0;
 	while (s[len])
@@ -86,13 +89,13 @@ void	free_list(t_list *lst)
  * Return : addresse of last node reached or NULL.
  */
 
-t_list	*ft_lstlast(t_list **lst)
+t_list	*ft_lstlast(t_list *lst)
 {
-	if (!*lst)
+	if (!lst)
 		return (NULL);
-	while ((*lst)->next != NULL)
-		(*lst) = (*lst)->next;
-	return (*lst);
+	while (lst->next != NULL)
+		lst = lst->next;
+	return (lst);
 }
 
 /**
@@ -109,7 +112,7 @@ int	newline_exist(t_list *lst)
 	i = 0;
 	if (!lst)
 		return (0);
-	lst = ft_lstlast(&lst);
+	lst = ft_lstlast(lst);
 	if (!lst->content)
 		return (0);
 	while (lst->content[i])
