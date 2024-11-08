@@ -26,7 +26,6 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, &line, 0) < 0)
 		return (NULL);
-	line = NULL;
 	read_store(fd, &lst);
 	if (!lst)
 		return (NULL);
@@ -70,6 +69,7 @@ void	read_store(int fd, t_list **lst)
 		buff[size] = '\0';
 		add_buffer(lst, buff, size);
 		free(buff);
+		buff = NULL;
 	}
 }
 
@@ -94,10 +94,7 @@ void	add_buffer(t_list **lst, char *buff, ssize_t size)
 		return ;
 	n_node->content = malloc(sizeof(char) * (size + 1));
 	if (!n_node->content)
-	{
-		free(n_node);
 		return ;
-	}
 	n_node->next = NULL;
 	while (buff[i] && i < size)
 	{
@@ -110,8 +107,8 @@ void	add_buffer(t_list **lst, char *buff, ssize_t size)
 		*lst = n_node;
 		return ;
 	}
-		last_node = ft_lstlast(*lst);
-		last_node->next = n_node;
+	last_node = ft_lstlast(*lst);
+	last_node->next = n_node;
 }
 
 /**
@@ -175,14 +172,12 @@ void	correct_list(t_list **lst)
 	i = 0;
 	while ((*lst)->content[i] && (*lst)->content[i] != '\n')
 		i++;
-	if ((*lst)->content[i] == '\n')
-		i++;
 	str = malloc(sizeof(char) * (ft_strlen((*lst)->content) - i + 1));
 	if (!str)
 		return ;
 	j = 0;
-	while ((*lst)->content[++i])
-		str[j++] = (*lst)->content[i];
+	while ((*lst)->content[i] && (*lst)->content[i])
+		str[j++] = (*lst)->content[++i];
 	str[j] = '\0';
 	free((*lst)->content);
 	(*lst)->content = str;
