@@ -5,20 +5,29 @@
 
 int main(void)
 {
+    int i = 0;
     int fd = open("file.txt", O_RDONLY);
-    if (fd == -1)
+    int fd2 = open("file2.txt", O_RDONLY);
+    if (fd == -1 || fd2 == -1)
     {
         perror("Error opening file");
         return 1;
     }
 
     char *line;
-    while ((line = get_next_line(fd)) != NULL)
+    char *line2;
+    while (((line = get_next_line(fd)) != NULL) || ((line2 = get_next_line(fd2)) != NULL))
     {
-        printf("%s", line); // Print each line
-        free(line);         // Free the line after printing
+        printf("%i:%s", i++, line2);  // Print each line
+        free(line2);         // Free the line after printing
+        if ((line = get_next_line(fd)) != NULL)
+        {
+            printf("%i:%s", i++, line);
+            free(line);
+        }
     }
 
     close(fd);
+    close(fd2);
     return 0;
 }

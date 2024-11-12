@@ -11,36 +11,10 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
 /**
- * get_next_line - function that read a specific buffers size from file descriptor
- * tell found newline and fix the buffer for the next call.
- * fd: file descriptor to read from.
- * Return: line gnerated or NULL if it failed.
- */
-
-char	*get_next_line(int fd)
-{
-	static char	*buff;
-	char		*line;
-
-	line = NULL;
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
-		return (NULL);
-	buff = read_buffer(fd, buff);
-	if (!buff)
-		return (NULL);
-	printf("%s", buff);
-	line = line_fixed(buff);
-	if (!line)
-		return (NULL);
-	buff = buffer_fixed(buff);
-	return (line);
-}
-
-/**
- * read_buffer - function that read buffer each time tell the newline found.
+ * read_buffer - function that read buffer each
+ * time tell the newline found.
  * fd: fil descriptor to read from.
  * Return: an assmbled buffers or NULL if it failed.
  */
@@ -64,8 +38,10 @@ char	*read_buffer(int fd, char *line)
 			free(buff);
 			return (NULL);
 		}
+		if (size == 0)
+			break ;
 		line = ft_strjoin(line, buff);
-		if (!(ft_strchr(buff, '\n')))
+		if (ft_strchr(buff, '\n'))
 			break ;
 	}
 	free(buff);
@@ -73,7 +49,8 @@ char	*read_buffer(int fd, char *line)
 }
 
 /**
- * line_fixed - Function to remove all character found after newline.
+ * line_fixed - Function to remove all character
+ * found after newline.
  * line: line to fix.
  * return: new generated line or NULL if it failed.
  */
@@ -84,7 +61,7 @@ char	*line_fixed(char *line)
 	ssize_t	i;
 
 	i = 0;
-	if (!line)
+	if (!line[i])
 		return (NULL);
 	while (line[i] && line[i] != '\n')
 		i++;
@@ -99,12 +76,14 @@ char	*line_fixed(char *line)
 	}
 	if (line[i] && line[i] == '\n')
 		n_line[i++] = '\n';
+	n_line[i] = '\0';
 	return (n_line);
 }
 
 /**
- * buffer_fixed - function the fix the last buffer containe newline buy
- * removing all charcters found before newline.
+ * buffer_fixed - function the fix the last buffer
+ * containe newline buy removing all charcters found
+ * before newline.
  * buff: string to fix.
  * Return: NULL if it failed or fixed buffer.
  */
@@ -119,15 +98,36 @@ char	*buffer_fixed(char *buff)
 	while (buff[i] && buff[i] != '\n')
 		i++;
 	if (!buff[i])
-	{
-		free(buff);
 		return (NULL);
-	}
 	line = ft_calloc((ft_strlen(buff) - i + 1), sizeof(char));
 	i++;
 	j = 0;
 	while (buff[i])
 		line[j++] = buff[i++];
 	free(buff);
+	return (line);
+}
+
+/**
+ * get_next_line - function that read a specific
+ *  buffers size from file descriptortell found
+ * newline and fix the buffer for the next call.
+ * fd: file descriptor to read from.
+ * Return: line gnerated or NULL if it failed.
+ */
+
+char	*get_next_line(int fd)
+{
+	static char	*buff[1024];
+	char		*line;
+
+	line = NULL;
+	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
+		return (NULL);
+	buff[fd] = read_buffer(fd, buff[fd]);
+	if (!buff[fd])
+		return (NULL);
+	line = line_fixed(buff[fd]);
+	buff[fd] = buffer_fixed(buff[fd]);
 	return (line);
 }

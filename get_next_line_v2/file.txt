@@ -5,8 +5,8 @@ This is the third line (note the blank line above).
 The quick brown fox jumps over the lazy dog.
 
 ABCDEFGHIJKLMNOPQRSTUVWXYZ
-abcdefghijklmnopqrstuvwxyz
 
+abcdefghijklmnopqrstuvwxyz
 1234567890!@#$%^&*()_+-=[]{},.<>/?;:'"|\
 
 Line with special characters: 😊🚀🔥🌟
