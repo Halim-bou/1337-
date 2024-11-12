@@ -26,10 +26,9 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, &line, 0) < 0)
 		return (NULL);
-	line = NULL;
 	read_store(fd, &lst);
 	if (!lst)
-		return NULL;
+		return (NULL);
 	assemble_line(lst, &line);
 	correct_list(&lst);
 	if (line[0] == '\0')
@@ -52,15 +51,15 @@ char	*get_next_line(int fd)
 
 void	read_store(int fd, t_list **lst)
 {
-	char	*buff;
+	char		*buff;
 	ssize_t		size;
 
 	size = 1;
-	while (!(newline_exist(*lst)) && size != 0)
+	while (!(newline_exist(*lst)) && size > 0)
 	{
 		buff = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 		if (!buff)
-			return (NULL);
+			return ;
 		size = read(fd, buff, BUFFER_SIZE);
 		if ((*lst == NULL && size == 0) || size == -1)
 		{
@@ -70,6 +69,7 @@ void	read_store(int fd, t_list **lst)
 		buff[size] = '\0';
 		add_buffer(lst, buff, size);
 		free(buff);
+		buff = NULL;
 	}
 }
 
@@ -81,7 +81,8 @@ void	read_store(int fd, t_list **lst)
  * size: size of line readed.
  * Return: Nothing.
  */
-void	add_buffer(t_list *lst, char *buff, ssize_t size)
+
+void	add_buffer(t_list **lst, char *buff, ssize_t size)
 {
 	t_list	*n_node;
 	t_list	*last_node;
@@ -95,13 +96,18 @@ void	add_buffer(t_list *lst, char *buff, ssize_t size)
 	if (!n_node->content)
 		return ;
 	n_node->next = NULL;
-	while (buff[i] && i <= size)
+	while (buff[i] && i < size)
 	{
 		n_node->content[i] = buff[i];
 		i++;
 	}
-	n_node->content[i + 1] = '\0';
-	last_node = ft_lstlast(lst);
+	n_node->content[i] = '\0';
+	if (*lst == NULL)
+	{
+		*lst = n_node;
+		return ;
+	}
+	last_node = ft_lstlast(*lst);
 	last_node->next = n_node;
 }
 
@@ -117,22 +123,62 @@ void	assemble_line(t_list *lst, char **line)
 {
 	ssize_t	i;
 	ssize_t	j;
-	if (!lst)
+	t_list	*ptr;
+
+	ptr = lst;
+	if (lst == NULL)
 		return ;
 	*line = allocate_line(&lst);
 	if (!*line)
 		return ;
-	i = 0;
-	while (lst)
+	j = 0;
+	while (ptr)
 	{
-		j = 0;
-		while (lst->content[i] || lst->content[i] != '\n')
+		i = 0;
+		while (ptr->content[i] && ptr->content[i] != '\n')
+			(*line)[j++] = ptr->content[i++];
+		if (ptr->content[i] == '\n')
 		{
-			(*line)[j] = lst->content[i];
-			i++;
-			j++;
+			(*line)[j++] = '\n';
+			break ;
 		}
-		if (lst->content[i] == '\n')
-			(*line)[j] = lst->content[]
+		ptr = ptr->next;
 	}
+	(*line)[j] = '\0';
+}
+
+/**
+ * correct_list - function to delete and free all nodes tell the last
+ * node contine newline and fix the string buy removig all characters
+ * coming before newline and newline included.
+ * lst: pointer to head of linked list.
+ * Return: Nothing
+ */
+
+void	correct_list(t_list **lst)
+{
+	t_list	*ptr;
+	ssize_t	i;
+	ssize_t	j;
+	char	*str;
+
+	while ((*lst)->next != NULL)
+	{
+		ptr = *lst;
+		free(ptr->content);
+		(*lst) = (*lst)->next;
+		free(ptr);
+	}
+	i = 0;
+	while ((*lst)->content[i] && (*lst)->content[i] != '\n')
+		i++;
+	str = malloc(sizeof(char) * (ft_strlen((*lst)->content) - i + 1));
+	if (!str)
+		return ;
+	j = 0;
+	while ((*lst)->content[i] && (*lst)->content[i])
+		str[j++] = (*lst)->content[++i];
+	str[j] = '\0';
+	free((*lst)->content);
+	(*lst)->content = str;
 }
