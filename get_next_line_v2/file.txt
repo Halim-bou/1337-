@@ -1,0 +1,16 @@
+Hello, this is the first line.
+
+This is the third line (note the blank line above).
+
+The quick brown fox jumps over the lazy dog.
+
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+abcdefghijklmnopqrstuvwxyz
+
+1234567890!@#$%^&*()_+-=[]{},.<>/?;:'"|\
+
+Line with special characters: 😊🚀🔥🌟
+
+This line is quite long to test how the function handles longer lines. It might even exceed the buffer size you've set in get_next_line, if any.
+
+End of file.
