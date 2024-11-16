@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: abelboua <abelboua@student.1337.ma>        #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-11-12 15:55:30 by abelboua          #+#    #+#             */
-/*   Updated: 2024-11-12 15:55:30 by abelboua         ###   ########.ma       */
+/*   Created: 2024-11-16 00:19:30 by abelboua          #+#    #+#             */
+/*   Updated: 2024-11-16 00:19:30 by abelboua         ###   ########.ma       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	char	*ptr;
 
 	if (!s1 && !s2)
-		return (ft_calloc(1, 1));
+		return ((char *)ft_calloc(1, 1));
 	s1_len = ft_strlen((char *)s1);
 	s2_len = ft_strlen((char *)s2);
-	ptr = ft_calloc((s1_len + s2_len + 1), sizeof(char));
+	ptr = (char *)ft_calloc((s1_len + s2_len + 1), sizeof(char));
 	if (!ptr)
 		return (NULL);
 	ft_strlcat(ptr, s1, s1_len + 1);
@@ -82,7 +82,7 @@ void	*ft_calloc(size_t number, size_t size)
 	size_t			i;
 
 	i = 0;
-	ptr = malloc(number * size);
+	ptr = (unsigned char *)malloc(number * size);
 	if (!(ptr))
 		return (NULL);
 	while (i < (size * number))

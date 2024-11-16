@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: abelboua <abelboua@student.1337.ma>        #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-11-12 16:41:10 by abelboua          #+#    #+#             */
-/*   Updated: 2024-11-12 16:41:10 by abelboua         ###   ########.fr       */
+/*   Created: 2024-11-16 00:19:35 by abelboua          #+#    #+#             */
+/*   Updated: 2024-11-16 00:19:35 by abelboua         ###   ########.ma       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
  * read_buffer - function that read buffer each
  * time tell the newline found.
  * fd: fil descriptor to read from.
+ * line: pointer to where we join the generated
+ * buffer with data we had.
  * Return: an assmbled buffers or NULL if it failed.
  */
 
@@ -25,8 +27,8 @@ char	*read_buffer(int fd, char *line)
 	ssize_t	size;
 
 	if (!line)
-		line = ft_calloc(1, 1);
-	buff = ft_calloc((BUFFER_SIZE + 1), sizeof(char));
+		line = (char *)ft_calloc(1, 1);
+	buff = (char *)ft_calloc((BUFFER_SIZE + 1), sizeof(char));
 	if (!buff)
 		return (NULL);
 	size = 1;
@@ -65,7 +67,7 @@ char	*line_fixed(char *line)
 		return (NULL);
 	while (line[i] && line[i] != '\n')
 		i++;
-	n_line = ft_calloc(sizeof(char), i + 2);
+	n_line = (char *)ft_calloc(sizeof(char), i + 2);
 	if (!n_line)
 		return (NULL);
 	i = 0;
@@ -99,7 +101,7 @@ char	*buffer_fixed(char *buff)
 		i++;
 	if (!buff[i])
 		return (NULL);
-	line = ft_calloc((ft_strlen(buff) - i + 1), sizeof(char));
+	line = (char *)ft_calloc((ft_strlen(buff) - i + 1), sizeof(char));
 	i++;
 	j = 0;
 	while (buff[i])
@@ -128,6 +130,11 @@ char	*get_next_line(int fd)
 	if (!buff[fd])
 		return (NULL);
 	line = line_fixed(buff[fd]);
+	if (!line)
+	{
+		free(buff[fd]);
+		return (NULL);
+	}
 	buff[fd] = buffer_fixed(buff[fd]);
 	return (line);
 }

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: abelboua <abelboua@student.1337.ma>        #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-11-12 15:56:13 by abelboua          #+#    #+#             */
-/*   Updated: 2024-11-12 15:56:13 by abelboua         ###   ########.fr       */
+/*   Created: 2024-11-16 00:19:40 by abelboua          #+#    #+#             */
+/*   Updated: 2024-11-16 00:19:40 by abelboua         ###   ########.ma       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define GET_NEXT_LINE_H
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 10
+#  define BUFFER_SIZE 112
 # endif
 
 # include <stdio.h>
