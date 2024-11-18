@@ -14,24 +14,30 @@
 
 int	sym_found(char sym, convet_t *func_list)
 {
-	int	i;
-
-	i = 0;
 	while (func_list->sym != NULL)
 	{
 		if (sym == func_list->sym[0])
 			return (1);
-		func_list->sym++;
+		func_list++;
 	}
 	return (0);
 }
 
-int	print_sym(char c, convet_t *func_list)
+int	print_sym(char c, convet_t *func_list, va_list arg_list)
 {
-	int	i;
+	int	res;
 
-	i = 0;
-	while (func_list)
+	res = -1;
+	while (func_list->sym != NULL)
+	{
+		if (func_list->sym[0] == c)
+		{
+			res = func_list->f(arg_list);
+			break ;
+		}
+		func_list++;
+	}
+	return (res);
 }
 
 int	parsing(const char *format, convet_t *func_list, va_list arg_list)
@@ -47,14 +53,15 @@ int	parsing(const char *format, convet_t *func_list, va_list arg_list)
 		{
 			if (format[i + 1] && sym_found(format[i + 1], func_list))
 			{
-				printed += print_sym(format[i + 1], func_list);
+				if (!print_sym(format[i + 1], func_list, arg_list))
+					return (-1);
+				printed += 2;
 				i += 2;
 			}
-			else if (!sym_found(format[i + 1], func_list))
+			else
 			{
 				return (-1);
 			}
-
 		}
 		else
 		{
