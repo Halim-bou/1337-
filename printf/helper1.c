@@ -28,8 +28,10 @@ int	put_str(va_list args_list)
 	return (1);
 }
 
-int	print_percent(__attribute__((unused))va_list args_list)
+int	print_percent(va_list args_list)
 {
+	if (va_arg(args_list, void *))
+		return (-1);
 	write(0, "%", 1);
 	return (1);
 }
