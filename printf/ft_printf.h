@@ -30,5 +30,4 @@ int	parsing(const char *format, convet_t *func_list, va_list arg_list);
 int	put_str(va_list args_list);
 int	print_sym(char c, convet_t *func_list, va_list arg_list);
 int	sym_found(char sym, convet_t *func_list);
-int	print_percent(va_list args_list);
 #endif

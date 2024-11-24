@@ -53,9 +53,14 @@ int	parsing(const char *format, convet_t *func_list, va_list arg_list)
 		{
 			if (format[i + 1] && sym_found(format[i + 1], func_list))
 			{
-				if (!print_sym(format[i + 1], func_list, arg_list))
-					return (-1);
-				printed += 2;
+				printed += write(1, "%", 1);
+				i++;
+				printed += print_sym(format[i], func_list, arg_list);
+				i++;
+			}
+			else if (format[i + 1] && format[i + 1] == '%')
+			{
+				printed += write(1, "%%", 2);
 				i += 2;
 			}
 			else
