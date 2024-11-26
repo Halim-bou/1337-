@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: abelboua <abelboua@student.1337.ma>        #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-11-17 16:42:32 by abelboua          #+#    #+#             */
-/*   Updated: 2024-11-17 16:42:32 by abelboua         ###   ########.ma       */
+/*   Created: 2024-11-25 01:47:34 by abelboua          #+#    #+#             */
+/*   Updated: 2024-11-25 01:47:34 by abelboua         ###   ########.ma       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int	print_sym(char c, convet_t *func_list, va_list arg_list)
 	int	res;
 
 	res = -1;
+	if (!sym_found(c, func_list))
+		return (-1);
 	while (func_list->sym != NULL)
 	{
 		if (func_list->sym[0] == c)
@@ -51,12 +53,11 @@ int	parsing(const char *format, convet_t *func_list, va_list arg_list)
 	{
 		if (format[i] == '%')
 		{
-			if (format[i + 1] && sym_found(format[i + 1], func_list))
+			if (format[i + 1] && (sym_found(format[i + 1], func_list)
+				&& check_flags(format[i + 1], func_list, arg_list)))
 			{
-				printed += write(1, "%", 1);
-				i++;
-				printed += print_sym(format[i], func_list, arg_list);
-				i++;
+				printed += print_sym(format[i + 1], func_list, arg_list);
+				i += 2;
 			}
 			else if (format[i + 1] && format[i + 1] == '%')
 			{
@@ -64,9 +65,7 @@ int	parsing(const char *format, convet_t *func_list, va_list arg_list)
 				i += 2;
 			}
 			else
-			{
 				return (-1);
-			}
 		}
 		else
 		{

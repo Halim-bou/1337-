@@ -1,30 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   flag_space.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abelboua <abelboua@student.1337.ma>        #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-11-17 16:24:06 by abelboua          #+#    #+#             */
-/*   Updated: 2024-11-17 16:24:06 by abelboua         ###   ########.ma       */
+/*   Created: 2024-11-26 08:45:21 by abelboua          #+#    #+#             */
+/*   Updated: 2024-11-26 08:45:21 by abelboua         ###   ########.ma       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "ft_printf.c"
 
-int	ft_printf(const char *format, ...)
+int	flag_space(va_list args_list)
 {
-	int	printed;
-	convet_t func_list[] = {
-		{"s", put_str},
-		{"%", print_percent},
-		{NULL, NULL},
-	};
-	if (format == NULL)
-		return (-1);
-	va_list arg_list;
-	va_start(arg_list, format);
-	printed = parsing(format, func_list, arg_list);
-	va_end(arg_list);
-	return (printed);
+	int	i;
+	
 }
