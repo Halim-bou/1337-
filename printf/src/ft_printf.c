@@ -15,7 +15,7 @@
 int	ft_printf(const char *format, ...)
 {
 	int	printed;
-	convet_t func_list[] = {
+	convet_t	func_list[] = {
 		{"s", put_str},
 		{"c", put_char},
 		{"d", put_nbr},
@@ -25,10 +25,11 @@ int	ft_printf(const char *format, ...)
 		{"p", print_pointer},
 		{" ", flag_space},
 		{NULL, NULL},
-	};
+		};
+	create_list(&func_list);
 	if (format == NULL)
 		return (-1);
-	va_list arg_list;
+	va_list	arg_list;
 	va_start(arg_list, format);
 	printed = parsing(format, func_list, arg_list);
 	va_end(arg_list);

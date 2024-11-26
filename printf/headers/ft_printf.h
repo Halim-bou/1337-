@@ -17,7 +17,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-typedef struct convet
+typedef struct convert
 {
 	char *sym;
 	int (*f)(va_list);
