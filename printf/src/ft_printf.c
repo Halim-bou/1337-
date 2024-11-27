@@ -30,8 +30,8 @@ void	create_fun_list(t_convert *func_list)
 	func_list[6].f = put_unisgned_nbr;
 	func_list[7].sym = "p";
 	func_list[7].f = print_pointer;
-	// func_list[8].sym = "%";
-	// func_list[8].f = print_space;
+	func_list[8].sym = "%";
+	func_list[8].f = print_space;
 	func_list[8].sym = NULL;
 	func_list[8].f = NULL;
 }

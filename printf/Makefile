@@ -2,7 +2,7 @@ CC := cc
 CFLAGS := -Wall -Wextra -Werror
 SRCS := $(wildcard src/*.c functions_helper/*.c)
 OBJS := $(SRCS:.c=.o)
-NAME := printf.a
+NAME := libftprintf.a
 HEADER := $(wildcard headers/*.h)
 
 all:		$(NAME)

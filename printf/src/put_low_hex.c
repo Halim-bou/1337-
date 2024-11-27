@@ -12,7 +12,7 @@
 
 #include "../headers/ft_printf.h"
 
-void	ft_puthex(unsigned long int num, int *i)
+void	ft_puthex(unsigned int num, int *i)
 {
 	char	c;
 
@@ -34,10 +34,10 @@ void	ft_puthex(unsigned long int num, int *i)
 
 int	call_low_hex(va_list args_list)
 {
-	unsigned long int	num;
+	unsigned int	num;
 	int					i;
 
-	num = va_arg(args_list, unsigned long int);
+	num = va_arg(args_list, unsigned int);
 	i = 0;
 	ft_puthex(num, &i);
 	return (i);

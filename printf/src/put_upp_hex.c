@@ -12,7 +12,7 @@
 
 #include "../headers/ft_printf.h"
 
-void	ft_put_upp_hex(unsigned long int num, int *i)
+void	ft_put_upp_hex(unsigned int num, int *i)
 {
 	char	c;
 
@@ -34,10 +34,10 @@ void	ft_put_upp_hex(unsigned long int num, int *i)
 
 int	call_upp_hex(va_list args_list)
 {
-	unsigned long int	num;
+	unsigned int	num;
 	int					i;
 
-	num = va_arg(args_list, unsigned long int);
+	num = va_arg(args_list, unsigned int);
 	i = 0;
 	ft_put_upp_hex(num, &i);
 	return (i);
