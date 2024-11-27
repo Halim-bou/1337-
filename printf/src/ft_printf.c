@@ -12,7 +12,7 @@
 
 #include "../headers/ft_printf.h"
 
-void	create_fun_list(convert_t *func_list)
+void	create_fun_list(t_convert *func_list)
 {
 	func_list[0].sym = "s";
 	func_list[0].f = put_str;
@@ -30,19 +30,19 @@ void	create_fun_list(convert_t *func_list)
 	func_list[6].f = put_unisgned_nbr;
 	func_list[7].sym = "p";
 	func_list[7].f = print_pointer;
-	func_list[8].sym = "%";
-	func_list[8].f = print_space;
-	func_list[9].sym = NULL;
-	func_list[9].f = NULL;
+	// func_list[8].sym = "%";
+	// func_list[8].f = print_space;
+	func_list[8].sym = NULL;
+	func_list[8].f = NULL;
 }
 
 int	ft_printf(const char *format, ...)
 {
 	int			printed;
-	convert_t	*func_list;
+	t_convert	*func_list;
 	va_list		arg_list;
 
-	func_list = malloc(sizeof(convert_t) * 10);
+	func_list = malloc(sizeof(t_convert) * 10);
 	if (!func_list)
 		return (-1);
 	create_fun_list(func_list);
