@@ -10,16 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
-
-void	ft_putstr(const char *str)
-{
-	while (*str)
-	{
-		write(1, str, 1);
-		str++;
-	}
-}
+#include "../headers/ft_printf.h"
 
 int	put_str(va_list args_list)
 {
@@ -28,6 +19,5 @@ int	put_str(va_list args_list)
 
 	str = va_arg(args_list, char *);
 	i = ft_strlen(str);
-	ft_putstr(str);
-	return (i);
+	return (write(1, str, i));
 }

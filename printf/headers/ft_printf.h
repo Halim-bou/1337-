@@ -36,5 +36,10 @@ int	call_low_hex(va_list args_list);
 void	ft_put_upp_hex(unsigned long int num, int *i);
 int	call_upp_hex(va_list args_list);
 int	print_pointer(va_list args_list);
-int	flag_space(va_list args_list);
+int	put_unisgned_nbr(va_list args_list);
+int	print_space(__attribute__((unused))va_list args_list);
+size_t	ft_strlen(const char *s);
+void	ft_putstr_fd(char *s, int fd);
+void	ft_putnbr_fd(int n, int fd);
+void	ft_putchar_fd(char c, int fd);
 #endif

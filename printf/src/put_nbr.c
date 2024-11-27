@@ -10,19 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../headers/ft_printf.h"
 
 int	put_nbr(va_list args_list)
 {
 	int	num;
 	int	count;
-	int copy;
+	int	copy;
 
 	count = 0;
 	num = va_arg(args_list, int);
 	if (num == -2147483648)
 	{
-		return(ft_putstr("-2147483648"));
+		return (write(1, "-2147483648", 11));
 	}
 	else
 	{

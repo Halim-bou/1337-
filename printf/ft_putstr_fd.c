@@ -1,24 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_pointer.c                                    :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abelboua <abelboua@student.1337.ma>        #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-11-26 08:01:54 by abelboua          #+#    #+#             */
-/*   Updated: 2024-11-26 08:01:54 by abelboua         ###   ########.ma       */
+/*   Created: 2024-10-28 15:02:33 by abelboua          #+#    #+#             */
+/*   Updated: 2024-10-28 15:02:33 by abelboua         ###   ########.ma       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/ft_printf.h"
+#include "./headers/ft_printf.h"
 
-int	print_pointer(va_list args_list)
+void	ft_putstr_fd(char *s, int fd)
 {
-	int					i;
-	unsigned long int	num;
+	unsigned int	i;
+	ssize_t			res;
 
-	num = va_arg(args_list, unsigned long int);
-	i = write(1, "0x", 2);
-	ft_puthex(num, &i);
-	return (i);
+	i = 0;
+	if (fd < 0)
+		return ;
+	while (s[i] != '\0')
+	{
+		res = write(fd, &s[i], 1);
+		if (res == -1)
+			return ;
+		i++;
+	}
 }

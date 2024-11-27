@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_pointer.c                                    :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abelboua <abelboua@student.1337.ma>        #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-11-26 08:01:54 by abelboua          #+#    #+#             */
-/*   Updated: 2024-11-26 08:01:54 by abelboua         ###   ########.ma       */
+/*   Created: 2024-10-28 13:44:54 by abelboua          #+#    #+#             */
+/*   Updated: 2024-10-28 13:44:54 by abelboua         ###   ########.ma       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/ft_printf.h"
+#include "./headers/ft_printf.h"
 
-int	print_pointer(va_list args_list)
+size_t	ft_strlen(const char *s)
 {
-	int					i;
-	unsigned long int	num;
+	size_t	i;
 
-	num = va_arg(args_list, unsigned long int);
-	i = write(1, "0x", 2);
-	ft_puthex(num, &i);
+	i = 0;
+	while (s[i] != '\0')
+	{
+		i++;
+	}
 	return (i);
 }

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../headers/ft_printf.h"
 
 int	sym_found(char sym, convet_t *func_list)
 {
@@ -42,14 +42,6 @@ int	print_sym(char c, convet_t *func_list, va_list arg_list)
 	return (res);
 }
 
-// int	check_flags(char *c, convet_t *func_list, va_list arg_list)
-// {
-// 	if (c == ' ')
-// 		return (flag_space(c, arg_list));
-// 	if (c == '+')
-// 		return ()
-// }
-
 int	parsing(const char *format, convet_t *func_list, va_list arg_list)
 {
 	int	i;
@@ -63,12 +55,10 @@ int	parsing(const char *format, convet_t *func_list, va_list arg_list)
 		{
 			if (format[i + 1] && (sym_found(format[i + 1], func_list)))
 			{
-				// printed += check_flags(format[i + 1], func_list, arg_list);
-				// i += check_flags(format[i + 1], func_list, arg_list);
 				printed += print_sym(format[i + 1], func_list, arg_list);
 				i += 2;
 			}
-			else if (format[i + 1] && format[i + 1] != ' ')
+			else if (format[i + 1] != '%' && format[i + 1] != ' ')
 			{
 				if (format[i + 1] != '\0')
 				{

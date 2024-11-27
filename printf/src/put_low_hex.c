@@ -10,11 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../headers/ft_printf.h"
 
 void	ft_puthex(unsigned long int num, int *i)
 {
-	char c;
+	char	c;
+
 	if (num >= 16)
 	{
 		ft_puthex(num / 16, i);
@@ -34,7 +35,7 @@ void	ft_puthex(unsigned long int num, int *i)
 int	call_low_hex(va_list args_list)
 {
 	unsigned long int	num;
-	int		i;
+	int					i;
 
 	num = va_arg(args_list, unsigned long int);
 	i = 0;

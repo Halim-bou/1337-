@@ -10,12 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../headers/ft_printf.h"
 
 int	put_char(va_list args_list)
 {
 	char	c;
 
-	c = va_arg(args_list, char);
-	return (write(1, &c,1));
+	c = va_arg(args_list, int);
+	return (write(1, &c, 1));
 }

@@ -10,11 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../headers/ft_printf.h"
 
 void	ft_put_upp_hex(unsigned long int num, int *i)
 {
 	char	c;
+
 	if (num >= 16)
 	{
 		ft_put_upp_hex(num / 16, i);
@@ -31,10 +32,10 @@ void	ft_put_upp_hex(unsigned long int num, int *i)
 	}
 }
 
-int call_upp_hex(va_list args_list)
+int	call_upp_hex(va_list args_list)
 {
 	unsigned long int	num;
-	int		i;
+	int					i;
 
 	num = va_arg(args_list, unsigned long int);
 	i = 0;

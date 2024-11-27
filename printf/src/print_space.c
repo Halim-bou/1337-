@@ -1,24 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_pointer.c                                    :+:      :+:    :+:   */
+/*   print_space.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abelboua <abelboua@student.1337.ma>        #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-11-26 08:01:54 by abelboua          #+#    #+#             */
-/*   Updated: 2024-11-26 08:01:54 by abelboua         ###   ########.ma       */
+/*   Created: 2024-11-27 10:10:54 by abelboua          #+#    #+#             */
+/*   Updated: 2024-11-27 10:10:54 by abelboua         ###   ########.ma       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/ft_printf.h"
 
-int	print_pointer(va_list args_list)
+int	print_space(__attribute__((unused))va_list args_list)
 {
-	int					i;
-	unsigned long int	num;
-
-	num = va_arg(args_list, unsigned long int);
-	i = write(1, "0x", 2);
-	ft_puthex(num, &i);
-	return (i);
+	return (write(1, "%", 1));
 }
