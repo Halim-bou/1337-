@@ -12,7 +12,7 @@
 
 #include "../headers/ft_printf.h"
 
-int	sym_found(char sym, convet_t *func_list)
+int	sym_found(char sym, convert_t *func_list)
 {
 	while (func_list->sym != NULL)
 	{
@@ -23,7 +23,7 @@ int	sym_found(char sym, convet_t *func_list)
 	return (0);
 }
 
-int	print_sym(char c, convet_t *func_list, va_list arg_list)
+int	print_sym(char c, convert_t *func_list, va_list arg_list)
 {
 	int	res;
 
@@ -42,7 +42,7 @@ int	print_sym(char c, convet_t *func_list, va_list arg_list)
 	return (res);
 }
 
-int	parsing(const char *format, convet_t *func_list, va_list arg_list)
+int	parsing(const char *format, convert_t *func_list, va_list arg_list)
 {
 	int	i;
 	int	printed;

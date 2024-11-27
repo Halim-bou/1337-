@@ -12,7 +12,7 @@
 
 #include "../headers/ft_printf.h"
 
-void	create_fun_list(convet_t *func_list)
+void	create_fun_list(convert_t *func_list)
 {
 	func_list[0].sym = "s";
 	func_list[0].f = put_str;
@@ -39,10 +39,10 @@ void	create_fun_list(convet_t *func_list)
 int	ft_printf(const char *format, ...)
 {
 	int			printed;
-	convet_t	*func_list;
+	convert_t	*func_list;
 	va_list		arg_list;
 
-	func_list = malloc(sizeof(convet_t) * 10);
+	func_list = malloc(sizeof(convert_t) * 10);
 	if (!func_list)
 		return (-1);
 	create_fun_list(func_list);

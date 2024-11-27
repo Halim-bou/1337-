@@ -21,13 +21,13 @@ typedef struct convert
 {
 	char *sym;
 	int (*f)(va_list);
-} convet_t;
+} convert_t;
 
 /* Main function for ft_printf */
 int	ft_printf(const char *format, ...);
-int	parsing(const char *format, convet_t *func_list, va_list arg_list);
-int	print_sym(char c, convet_t *func_list, va_list arg_list);
-int	sym_found(char sym, convet_t *func_list);
+int	parsing(const char *format, convert_t *func_list, va_list arg_list);
+int	print_sym(char c, convert_t *func_list, va_list arg_list);
+int	sym_found(char sym, convert_t *func_list);
 int	put_nbr(va_list args_list);
 int	put_str(va_list args_list);
 int	put_char(va_list args_list);
