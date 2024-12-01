@@ -12,6 +12,11 @@
 
 #include "../headers/ft_printf.h"
 
+
+/**
+ * function puthex need to be debugged while trid with 42 it gives 0xc7728840 insted 0x7fffc7728840.
+ * recursive needs to be checked again in line 24 to 37.
+ */
 void	ft_puthex(unsigned int num, int *i)
 {
 	char	c;

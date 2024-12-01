@@ -12,6 +12,9 @@
 
 #include "../headers/ft_printf.h"
 
+/**
+ * The function with printf for always starting 0x7fff while my ft_printf doesn't hundel this case.
+ */
 int	print_pointer(va_list args_list)
 {
 	int					i;

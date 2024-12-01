@@ -47,6 +47,8 @@ int	print_needed_sym(char c, char s, t_convert *func_list, va_list arg_list)
 	int	printed;
 
 	printed = 0;
+	if (s == '\0')
+		return (-1);
 	if (s && (sym_found(s, func_list)))
 		printed += print_sym(s, func_list, arg_list);
 	else if (s != '%' && s != ' ')
