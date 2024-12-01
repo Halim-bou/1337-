@@ -3,17 +3,14 @@ CFLAGS := -Wall -Wextra -Werror
 SRCS := $(wildcard src/*.c functions_helper/*.c)
 OBJS := $(SRCS:.c=.o)
 NAME := libftprintf.a
-HEADER := $(wildcard headers/*.h)
+HEADERS := $(wildcard headers/*.h)
 
 all:		$(NAME)
 
 $(NAME):	$(OBJS)
 			ar rcs $(NAME) $(OBJS)
 
-# bonus:		$(OBJS) $(BONUS)
-# 			ar rcs $(NAME) $(OBJS) $(BONUS)
-
-%.o:		%.c $(HEADER)
+%.o:		%.c $(HEADERS)
 			cc $(CFLAGS) -c $< -o $@
 
 clean:
@@ -22,8 +19,8 @@ clean:
 fclean:		clean
 			rm -f $(NAME)
 
-re:			fclean all bonus
+re:			fclean all
 
-.PHONY:		all bonus clean fclean re
+.PHONY:		all clean fclean re
 
 
