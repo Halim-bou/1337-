@@ -42,44 +42,6 @@ int	print_sym(char c, t_convert *func_list, va_list arg_list)
 	return (res);
 }
 
-// int	parsing(const char *format, convert_t *func_list, va_list arg_list)
-// {
-// 	int	i;
-// 	int	printed;
-
-// 	i = 0;
-// 	printed = 0;
-// 	while (format[i])
-// 	{
-// 		if (format[i] == '%')
-// 		{
-// 			if (format[i + 1] && (sym_found(format[i + 1], func_list)))
-// 			{
-// 				printed += print_sym(format[i + 1], func_list, arg_list);
-// 				i += 2;
-// 			}
-// 			else if (format[i + 1] != '%' && format[i + 1] != ' ')
-// 			{
-// 				if (format[i + 1] != '\0')
-// 				{
-// 					printed += write(1, &format[i], 1);
-// 					printed += write(1, &format[i + 1], 1);
-// 					i += 2;
-// 				}
-// 			}
-// 			else
-// 				return (-1);
-// 		}
-// 		else
-// 		{
-// 			write(1, &format[i], 1);
-// 			i++;
-// 			printed += 1;
-// 		}
-// 	}
-// 	return (printed);
-// }
-
 int	print_needed_sym(char c, char s, t_convert *func_list, va_list arg_list)
 {
 	int	printed;
