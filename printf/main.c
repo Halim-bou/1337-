@@ -30,6 +30,13 @@ int	main(void)
 	j = ft_printf("%p\n", &str);
 	ft_printf_test(i, j);
 	////////////////////////
+	i = printf("%s", NULL);
+	j = ft_printf("%s", NULL);
+	ft_printf_test(i , j);
+
+	i = printf("");
+	j = ft_printf("");
+	ft_printf_test(i, j);
 	str = "hey";
 	i = printf("%s\n", str);
 	j = ft_printf("%s\n", str);
