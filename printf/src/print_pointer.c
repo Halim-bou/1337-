@@ -18,10 +18,10 @@
 int	print_pointer(va_list args_list)
 {
 	int					i;
-	unsigned int		num;
+	unsigned long int		num;
 
 	i = 0;
-	num = va_arg(args_list, unsigned int);
+	num = va_arg(args_list, unsigned long int);
 	if (!num)
 	{
 		ft_putstr_fd("(nil)", 1);

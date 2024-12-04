@@ -32,8 +32,8 @@ void	create_fun_list(t_convert *func_list)
 	func_list[7].f = print_pointer;
 	func_list[8].sym = "%";
 	func_list[8].f = print_space;
-	func_list[8].sym = NULL;
-	func_list[8].f = NULL;
+	func_list[9].sym = NULL;
+	func_list[9].f = NULL;
 }
 
 int	ft_printf(const char *format, ...)

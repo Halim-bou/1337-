@@ -60,11 +60,10 @@ int	main(void)
 	j = ft_printf("hex_ft_printf = %X\n", num);
 	ft_printf_test(i, j);
 	i = printf("%");
-	printf("%d\n", i);
-	// j = ft_printf("%");
-	// ft_printf_test(i, j);
-	i = printf("% hey from last percent\n");
-	j = ft_printf("% hey from last percent\n");
+	j = ft_printf("%");
+	ft_printf_test(i, j);
+	i = printf("% ly from last percent\n");
+	j = ft_printf("% ly from last percent\n");
 	ft_printf_test(i, j);
 	i = printf("hey from percent ends %");
 	printf("\n");

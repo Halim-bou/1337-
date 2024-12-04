@@ -17,7 +17,7 @@
  * function puthex need to be debugged while trid with 42 it gives 0xc7728840 insted 0x7fffc7728840.
  * recursive needs to be checked again in line 24 to 37.
  */
-void	ft_puthex(unsigned int num, int *i)
+void	ft_puthex(unsigned long int num, int *i)
 {
 	char	c;
 
@@ -39,10 +39,10 @@ void	ft_puthex(unsigned int num, int *i)
 
 int	call_low_hex(va_list args_list)
 {
-	unsigned int	num;
+	unsigned long int	num;
 	int					i;
 
-	num = va_arg(args_list, unsigned int);
+	num = va_arg(args_list, unsigned long int);
 	i = 0;
 	ft_puthex(num, &i);
 	return (i);
