@@ -25,11 +25,8 @@ typedef struct convert
 
 /* Main function for ft_printf */
 int		ft_printf(const char *format, ...);
-int		parsing(const char *format, t_convert *func_list, va_list arg_list);
-int		print_sym(char c, t_convert *func_list, va_list arg_list);
-int		print_needed_sym(char c, char s,
-			t_convert *func_list, va_list arg_list);
-int		sym_found(char sym, t_convert *func_list);
+int		parsing(const char *format, t_convert func_list[10], va_list arg_list);
+int		print_sym(char *format, int *i, t_convert func_list[10], va_list arg_list);
 int		put_nbr(va_list args_list);
 int		put_str(va_list args_list);
 int		put_char(va_list args_list);
