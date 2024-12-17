@@ -12,88 +12,44 @@
 
 #include "../headers/ft_printf.h"
 
-int	sym_found(char sym, t_convert *func_list)
+int	print_sym(char *format, int *i, t_convert *func_list, va_list arg_list)
 {
-	while (func_list->sym != NULL)
+	int	idx;
+	int	rem;
+
+	rem = *i;
+	(*i)++;
+	idx = 0;
+	while (func_list[idx].sym)
 	{
-		if (sym == func_list->sym[0])
-			return (1);
-		func_list++;
+		if (format[*i] == func_list[idx].sym[0])
+			return (func_list[idx].f(arg_list));
+		idx++;
 	}
-	return (0);
-}
-
-int	print_sym(char c, t_convert *func_list, va_list arg_list)
-{
-	int	res;
-
-	res = -1;
-	if (!sym_found(c, func_list))
+	if (format[*i] == 0)
 		return (-1);
-	while (func_list->sym != NULL)
-	{
-		if (func_list->sym[0] == c)
-		{
-			res = func_list->f(arg_list);
-			break ;
-		}
-		func_list++;
-	}
-	return (res);
-}
-
-int	print_needed_sym(char c, char s, t_convert *func_list, va_list arg_list)
-{
-	int	printed;
-
-	printed = 0;
-	if (s == '\0')
-		return (-1);
-	if (s && (sym_found(s, func_list)))
-		printed += print_sym(s, func_list, arg_list);
-	else if (s != ' ')
-	{
-		if (s != '\0')
-		{
-			printed += write(1, &c, 1);
-			printed += write(1, &s, 1);
-		}
-		else
-			return (-1);
-	}
-	else
-	{
-		printed = write(1, &c, 1);
-		printed += write(1, &s, 1);
-	}
-	return (printed);
+	*i = rem;
+	return (write(1, "%", 1));
 }
 
 int	parsing(const char *format, t_convert *func_list, va_list arg_list)
 {
 	int	i;
 	int	printed;
-	int	ret;
+	int	count;
 
 	i = 0;
-	printed = 0;
-	ret = 0;
-	while (format[i])
+	count = 0;
+	while(format[i])
 	{
 		if (format[i] == '%')
-		{
-			ret = print_needed_sym(format[i],
-					format[i + 1], func_list, arg_list);
-			if (ret == -1)
-				return (-1);
-			printed += ret;
-			i += 2;
-		}
+			printed = print_sym(format, &i, func_list, arg_list);
 		else
-		{
-			write(1, &format[i++], 1);
-			printed++;
-		}
+			printed = write(1, &format[i], 1);
+		if (printed == -1)
+			return (-1);
+		count += printed;
+		i++;
+		return (count);
 	}
-	return (printed);
 }
