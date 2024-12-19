@@ -12,7 +12,7 @@
 
 #include "../headers/ft_printf.h"
 
-int	print_space(__attribute__((unused))va_list args_list)
+int	print_percent(__attribute__((unused))va_list args_list)
 {
 	return (write(1, "%", 1));
 }

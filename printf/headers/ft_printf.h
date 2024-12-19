@@ -25,8 +25,8 @@ typedef struct convert
 
 /* Main function for ft_printf */
 int		ft_printf(const char *format, ...);
-int		parsing(const char *format, t_convert func_list[10], va_list arg_list);
-int		print_sym(char *format, int *i, t_convert func_list[10], va_list arg_list);
+int		print_sym(const char *format, int *i, t_convert *func_list, va_list arg_list);
+int		parsing(const char *format, t_convert *func_list, va_list arg_list);
 int		put_nbr(va_list args_list);
 int		put_str(va_list args_list);
 int		put_char(va_list args_list);
@@ -34,7 +34,7 @@ int		call_low_hex(va_list args_list);
 int		print_pointer(va_list args_list);
 int		call_upp_hex(va_list args_list);
 int		put_unisgned_nbr(va_list args_list);
-int		print_space(__attribute__((unused))va_list args_list);
+int		print_percent(__attribute__((unused))va_list args_list);
 void	ft_puthex(unsigned long int num, int *i);
 void	ft_put_upp_hex(unsigned int num, int *i);
 size_t	ft_strlen(const char *s);

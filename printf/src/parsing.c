@@ -12,7 +12,7 @@
 
 #include "../headers/ft_printf.h"
 
-int	print_sym(char *format, int *i, t_convert *func_list, va_list arg_list)
+int	print_sym(const char *format, int *i, t_convert *func_list, va_list arg_list)
 {
 	int	idx;
 	int	rem;
@@ -50,6 +50,6 @@ int	parsing(const char *format, t_convert *func_list, va_list arg_list)
 			return (-1);
 		count += printed;
 		i++;
-		return (count);
 	}
+	return (count);
 }
