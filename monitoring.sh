@@ -1,3 +1,5 @@
+[sudo] password for abelboua: 
+root@abelboua42:/home/abelboua# cat monitoring.sh 
 #!/usr/bin/bash
 
 arch=$(uname -a);
@@ -26,11 +28,12 @@ wall "
 	#Disk Usage: $Disk_used/$Disk_size"Gb" ($Disk_percent%)
 	#CPU load: $Cpu_load%
 	#Last boot: $last_boot
-	#lVM use: $(lvscan 2>/dev/null | awk '/ACTIVE/ {found=1} END  {if (found) print "yes"; else print "no"}')
+	#lVM use: $LVM
 	#Connections TCP: $Connection ESTABLISHED
 	#User log: $users_connected
 	#Network: IP $ip ($mac)
 	#Sudo: $sudo cmd
 	"
+
 
 
