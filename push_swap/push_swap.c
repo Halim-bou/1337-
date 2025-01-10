@@ -1,31 +1,17 @@
 #include "./includes/push_swap.h"
 
-void	push_swap(t_list *lst)
-{
-	int	size_a;
-	int	size_b;
-	t_list *lst_b;
-
-	lst_b = (t_list *){NULL, NULL};
-	size_a = ft_lstsize(lst);
-	size_b = ft_lstsize(lst_b);
-	ra(&lst, size_a);
-}
-
-int	*create_list(char **arr, int len)
+void	*create_list(char **arr, int len)
 {
 	int	i;
 	t_list	*head;
 
-	if (ft_strcmp(*arr[0], "./push_swap"))
-		i = 1;
-	else
-		i = 0;
-	head = ft_lstnew(ft_atoi(*arr[i]));
+	head = NULL;
+	i = 0;
+	head = ft_lstnew(arr[i]);
 	i++;
-	while (*arr[i])
+	while (i < len)
 	{
-		ft_lstadd_bak(&head, ft_lstnew(ft_atoi(*arr[i])));
+		ft_lstadd_back(&head, ft_lstnew(arr[i]));
 		i++;
 	}
 	return (head);
@@ -34,25 +20,32 @@ int	*create_list(char **arr, int len)
 int main(int argc, char **argv)
 {
 	char	**nums;
-	int		*numbers;
+	t_list	*numbers;
 	int		i;
 
 	i = 0;
 	if (argc <= 1)
-	{
-		write(1, "\n", 1);
-		return (0);
-	}
+		return (1);
 	else if (argc == 2)
 	{
+		if (!argv[1][0])
+			return (1);
 		nums = ft_split(argv[1], ' ');
 		while (*nums[i])
 			i++;
 		numbers = create_list(nums, i);
 	}
 	else
+		numbers = create_list(argv++, argc - 1);
+	if (!validation(&numbers) || !check_chars(numbers))
 	{
-		numbers = create_list(argv, argc);
+		write(2, "Error\n", 6);
+		return (1);
 	}
-	push_swap(numbers);
+	while (numbers->next)
+	{
+		printf("%i\n", numbers->content);
+		numbers = numbers->next;
+	}
+	return (0);
 }
