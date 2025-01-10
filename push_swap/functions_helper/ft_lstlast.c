@@ -1,25 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abelboua <abelboua@student.1337.ma>        #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-10-28 13:44:54 by abelboua          #+#    #+#             */
-/*   Updated: 2024-10-28 13:44:54 by abelboua         ###   ########.ma       */
+/*   Created: 2024-10-30 09:16:51 by abelboua          #+#    #+#             */
+/*   Updated: 2024-10-30 09:16:51 by abelboua         ###   ########.ma       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/ft_printf.h"
+#include "../includes/push_swap.h"
 
-size_t	ft_strlen(const char *s)
+t_list	*ft_lstlast(t_list *lst)
 {
-	size_t	i;
-
-	i = 0;
-	while (s[i] != '\0')
-	{
-		i++;
-	}
-	return (i);
+	if (!lst)
+		return (NULL);
+	while (lst-> next != NULL)
+		lst = lst->next;
+	return (lst);
 }

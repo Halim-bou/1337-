@@ -1,33 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abelboua <abelboua@student.1337.ma>        #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-10-28 13:45:04 by abelboua          #+#    #+#             */
-/*   Updated: 2024-10-28 13:45:04 by abelboua         ###   ########.ma       */
+/*   Created: 2024-10-30 09:18:53 by abelboua          #+#    #+#             */
+/*   Updated: 2024-10-30 09:18:53 by abelboua         ###   ########.ma       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/push_swap.h"
 
-char	*ft_strnstr(const char *big, const char *little, size_t len)
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	size_t	i;
-	size_t	j;
+	t_list	*ptr;
 
-	i = 0;
-	j = 0;
-	if (*little == 0)
-		return ((char *)big);
-	while (little[j])
-		j++;
-	while (big[i] && i + j <= len)
+	if (!lst || !new)
+		return ;
+	if (!(*lst))
 	{
-		if (ft_strncmp(&big[i], little, j) == 0)
-			return ((char *)&big[i]);
-		i++;
+		*lst = new;
+		return ;
 	}
-	return (0);
+	ptr = *lst;
+	while (ptr->next != NULL)
+		ptr = ptr->next;
+	ptr->next = new;
 }

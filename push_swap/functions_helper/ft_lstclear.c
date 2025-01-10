@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcmp.c                                        :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abelboua <abelboua@student.1337.ma>        #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-10-28 13:44:03 by abelboua          #+#    #+#             */
-/*   Updated: 2024-10-28 13:44:03 by abelboua         ###   ########.ma       */
+/*   Created: 2024-10-30 09:28:28 by abelboua          #+#    #+#             */
+/*   Updated: 2024-10-30 09:28:28 by abelboua         ###   ########.ma       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/push_swap.h"
 
-int	ft_memcmp(const void *s1, const void *s2, size_t n)
+void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
-	const unsigned char	*p1;
-	const unsigned char	*p2;
-	size_t				i;
+	t_list	*ptr;
 
-	p1 = (const unsigned char *)s1;
-	p2 = (const unsigned char *)s2;
-	i = 0;
-	while (i < n)
+	if (!lst || !del || !*lst)
+		return ;
+	while (*lst != NULL)
 	{
-		if (p1[i] != p2[i])
-			return (p1[i] - p2[i]);
-		i++;
+		ptr = *lst;
+		del((*lst)->content);
+		*lst = (*lst)->next;
+		free(ptr);
 	}
-	return (0);
+	*lst = NULL;
 }

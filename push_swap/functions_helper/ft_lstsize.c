@@ -1,33 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcat.c                                       :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abelboua <abelboua@student.1337.ma>        #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-10-28 13:44:44 by abelboua          #+#    #+#             */
-/*   Updated: 2024-10-28 13:44:44 by abelboua         ###   ########.ma       */
+/*   Created: 2024-10-30 09:15:10 by abelboua          #+#    #+#             */
+/*   Updated: 2024-10-30 09:15:10 by abelboua         ###   ########.ma       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/push_swap.h"
 
-size_t	ft_strlcat(char *dst, const char *src, size_t size)
+int	ft_lstsize(t_list *lst)
 {
-	size_t	sl;
-	size_t	dl;
-	size_t	i;
+	int	i;
 
 	i = 0;
-	sl = ft_strlen((char *)src);
-	dl = ft_strlen((char *)dst);
-	if (size <= dl)
-		return (size + sl);
-	while (src[i] && (dl + i) < size - 1)
+	if (!lst)
+		return (0);
+	while (lst != NULL)
 	{
-		dst[dl + i] = src[i];
 		i++;
+		lst = lst->next;
 	}
-	dst[dl + i] = '\0';
-	return (dl + sl);
+	return (i);
 }

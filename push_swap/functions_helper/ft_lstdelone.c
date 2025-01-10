@@ -1,24 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstiter_bonus.c                                 :+:      :+:    :+:   */
+/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abelboua <abelboua@student.1337.ma>        #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-10-31 20:08:40 by abelboua          #+#    #+#             */
-/*   Updated: 2024-10-31 20:08:40 by abelboua         ###   ########.ma       */
+/*   Created: 2024-10-30 09:24:28 by abelboua          #+#    #+#             */
+/*   Updated: 2024-10-30 09:24:28 by abelboua         ###   ########.ma       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/push_swap.h"
 
-void	ft_lstiter(t_list *lst, void (*f)(void *))
+void	ft_lstdelone(t_list *lst, void (*del)(void *))
 {
-	if (!lst || !f)
+	if (!lst || !del)
 		return ;
-	while (lst != NULL)
-	{
-		f(lst->content);
-		lst = lst->next;
-	}
+	del(lst->content);
+	free(lst);
 }

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_atoil.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abelboua <abelboua@student.1337.ma>        #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,23 +10,28 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/push_swap.h"
 
-static int	ft_isspace(int c)
+static int	is_space(int c)
 {
 	return ((c >= 9 && c <= 13) || c == ' ');
 }
 
-int	ft_atoi(const char *n)
+static int	ft_isdigit(int c)
+{
+	return (c >= '0' && c <= '9');
+}
+
+long	ft_atoil(const char *n)
 {
 	long unsigned int	i;
-	int					result;
-	int					sign;
+	long					result;
+	long					sign;
 
 	i = 0;
 	result = 0;
 	sign = 1;
-	while (ft_isspace(n[i]) && n[i] != '-' && n[i] != '+')
+	while (is_space(n[i]) && n[i] != '-' && n[i] != '+')
 		i++;
 	if (n[i] == '-' || n[i] == '+')
 	{
