@@ -63,7 +63,6 @@ int	check_sign(char *str)
 			r = 0;
 		i++;
 	}
-	printf("r = %i\n", r);
 	return (r);
 }
 
@@ -75,6 +74,7 @@ int	check_chars(t_list *lst)
 	i = 0;
 	while (lst->next != NULL)
 	{
+		i = 0;
 		num = (char *)lst->content;
 		if (!check_sign(num))
 			return (0);
@@ -110,12 +110,10 @@ int	validation(t_list **lst)
 	while (ptr->next)
 	{
 		ptr->num = ft_atoil(ptr->content);
-		//free(ptr->content);
 		if (!(check_int(ptr->num)))
 			return (0);
 		ptr = ptr->next;
 	}
-	//free(ptr->content);
 	if (!(check_dup(*lst)))
 		return (0);
 	return (1);

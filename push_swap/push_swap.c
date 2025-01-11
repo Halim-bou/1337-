@@ -69,7 +69,7 @@ int main(int argc, char **argv)
 	while (ptr->next)
 	{
 		tmp = ptr->num;
-		printf("is :%i\n", tmp);
+		printf("res :%i\n", tmp);
 		ptr = ptr->next;
 	}
 	if (nums != NULL)
