@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abelboua <abelboua@student.1337.ma>        #+#  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025-01-11 18:44:36 by abelboua          #+#    #+#             */
+/*   Updated: 2025-01-11 18:44:36 by abelboua         ###   ########.ma       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "./includes/push_swap.h"
 #include <stdio.h>
 
@@ -63,6 +75,7 @@ int main(int argc, char **argv)
 		write(2, "Error\n", 6);
 		return (1);
 	}
+	sa(&numbers, ft_lstsize(numbers));
 	sa(&numbers, ft_lstsize(numbers));
 	int tmp = 0;
 	t_list *ptr = numbers;

@@ -51,4 +51,5 @@ void	free_split(t_list **lst);
 
 //operations functions
 void	sa(t_list **lst_a, int size);
+void	sb(t_list **lst_b, int size);
 #endif

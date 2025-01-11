@@ -1,12 +1,11 @@
-#include "../includes/push_swap.h"
-
-void	ra(t_list *lst_a, int size)
-{
-	int	temp;
-
-	if (size <= 1)
-		return;
-	temp = lst_a->next->content;
-	lst_a->next->content = lst_a->content;
-	lst_a->content = temp;
-}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rb.c                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abelboua <abelboua@student.1337.ma>        #+#  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025-01-11 18:46:19 by abelboua          #+#    #+#             */
+/*   Updated: 2025-01-11 18:46:19 by abelboua         ###   ########.ma       */
+/*                                                                            */
+/* ************************************************************************** */
