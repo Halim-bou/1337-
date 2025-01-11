@@ -59,4 +59,9 @@ void	pb(t_list **lst_a, t_list **lst_b, int size_a, int size_b);
 void	rr(t_list **lst_a, t_list **lst_b);
 void	rb(t_list **head);
 void	ra(t_list **head);
+void	rra(t_list **lst);
+void	rrb(t_list **lst);
+void	rrr(t_list **lst_a, t_list **lst_b);
+
+//functions sorting
 #endif

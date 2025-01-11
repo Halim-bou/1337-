@@ -19,13 +19,16 @@ void	rb(t_list **head)
 
 	if (ft_lstsize(*head) <= 1)
 		return;
-	tail = ft_lstlast(*head);
+	tail = *head;
+	while (tail->next->next != NULL)
+		tail = tail->next;
 	ptr = (*head)->next;
 	tail->next = *head;
+	(*head)->prev = tail;
 	(*head)->next = NULL;
 	tail = tail->next;
 	*head = ptr;
 	(*head)->prev = NULL;
 	ptr = NULL;
-	write(1, "ra\n", 3);
+	write(1, "rb\n", 3);
 }

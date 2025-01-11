@@ -75,14 +75,10 @@ int main(int argc, char **argv)
 		write(2, "Error\n", 6);
 		return (1);
 	}
-	// t_list *test = NULL;
-	// test = ft_lstnew(NULL);
-	// test->num = 1;
-	// ft_lstadd_front(&test, ft_lstnew(NULL));
-	// pa(&, &test, ft_lstsize(numbers), ft_lstsize(test));
+	rra(&numbers);
 	int tmp = 0;
 	t_list *ptr = numbers;
-	while (ptr->next)
+	while (ptr)
 	{
 		tmp = ptr->num;
 		printf("|  %i  |\n", tmp);
