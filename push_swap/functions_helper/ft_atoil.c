@@ -17,11 +17,11 @@ static int	is_space(int c)
 	return ((c >= 9 && c <= 13) || c == ' ');
 }
 
-long	ft_atoil(const char *n)
+long int	ft_atoil(const char *n)
 {
 	long unsigned int	i;
-	long					result;
-	long					sign;
+	long int			result;
+	long int			sign;
 
 	i = 0;
 	result = 0;

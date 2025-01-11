@@ -12,6 +12,7 @@
 
 #include "./includes/push_swap.h"
 #include <limits.h>
+#include <stdio.h>
 
 static int	is_sign(char c)
 {
@@ -21,26 +22,24 @@ static int	is_sign(char c)
 		return (0);
 }
 
-int	check_int(int num)
+int	check_int(long int num)
 {
-	if (num > INT_MAX || num < INT_MIN)
-		return (0);
-	else
+	if (num >= INT_MIN && num <= INT_MAX)
 		return (1);
+	else
+		return (0);
 }
 
 int	check_dup(t_list *lst)
 {
 	t_list	*ptr;
-	t_list	*pivot;
 
-	pivot = lst;
 	while (lst->next != NULL)
 	{
-		ptr = pivot;
+		ptr = lst->next;
 		while(ptr->next != NULL)
 		{
-			if (lst->content == ptr->content)
+			if (lst->num == ptr->num)
 				return (0);
 			ptr = ptr->next;
 		}
@@ -60,7 +59,7 @@ int	check_chars(t_list *lst)
 		num = (char *)lst->content;
 		while (num[i])
 		{
-			if (ft_isgidit(num[i]) || is_sign(num[i]))
+			if (ft_isdigit(num[i]) || is_sign(num[i]))
 				i++;
 			else
 				return (0);
@@ -68,6 +67,18 @@ int	check_chars(t_list *lst)
 		lst = lst->next;
 	}
 	return (1);
+}
+void	free_split(t_list **lst)
+{
+	t_list	*ptr;
+
+	ptr = *lst;
+	while(ptr->next)
+	{
+		free(ptr->content);
+		ptr = ptr->next;
+	}
+	free(ptr->content);
 }
 
 int	validation(t_list **lst)
@@ -77,11 +88,13 @@ int	validation(t_list **lst)
 	ptr = *lst;
 	while (ptr->next)
 	{
-		ptr->content = (int)ft_atoil(ptr->content);
-		if (!(check_int(ptr->content)))
+		ptr->num = ft_atoil(ptr->content);
+		//free(ptr->content);
+		if (!(check_int(ptr->num)))
 			return (0);
 		ptr = ptr->next;
 	}
+	//free(ptr->content);
 	if (!(check_dup(*lst)))
 		return (0);
 	return (1);

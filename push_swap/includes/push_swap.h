@@ -15,19 +15,21 @@
 
 #include <unistd.h>
 #include <stdlib.h>
-#include "../libft/libft.h"
-#include "../printf/headers/ft_printf.h"
 
 /* Linked liste structer */
 typedef struct s_list
 {
 	void			*content;
+	long int		num;
 	struct s_list	*next;
 	struct s_list	*prev;
 }	t_list;
 
 //function helpers
-
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+size_t	ft_strlen(const char *s);
+char	**ft_split(char const *s, char c);
+void	*ft_calloc(size_t number, size_t size);
 long	ft_atoil(const char *n);
 void	ft_lstadd_back(t_list **lst, t_list *new);
 void	ft_lstadd_front(t_list **lst, t_list *new);
@@ -43,5 +45,7 @@ int	ft_isdigit(int c);
 // function check valide data
 int	check_chars(t_list *lst);
 int	check_dup(t_list *lst);
-int	check_int(t_list *lst);
+int	check_int(long int num);
+int	validation(t_list **lst);
+void	free_split(t_list **lst);
 #endif
