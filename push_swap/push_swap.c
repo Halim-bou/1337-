@@ -47,10 +47,7 @@ int main(int argc, char **argv)
 			return (1);
 		nums = ft_split(argv[1], ' ');
 		while (nums[i])
-		{
-			printf("test:%s\n", nums[i]);
 			i++;
-		}
 		numbers = create_list(nums, i);
 	}
 	else
@@ -66,12 +63,13 @@ int main(int argc, char **argv)
 		write(2, "Error\n", 6);
 		return (1);
 	}
+	sa(&numbers, ft_lstsize(numbers));
 	int tmp = 0;
 	t_list *ptr = numbers;
 	while (ptr->next)
 	{
 		tmp = ptr->num;
-		printf("%i\n", tmp);
+		printf("is :%i\n", tmp);
 		ptr = ptr->next;
 	}
 	if (nums != NULL)

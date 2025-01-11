@@ -48,4 +48,7 @@ int	check_dup(t_list *lst);
 int	check_int(long int num);
 int	validation(t_list **lst);
 void	free_split(t_list **lst);
+
+//operations functions
+void	sa(t_list **lst_a, int size);
 #endif

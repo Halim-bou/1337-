@@ -48,6 +48,25 @@ int	check_dup(t_list *lst)
 	return (1);
 }
 
+int	check_sign(char *str)
+{
+	int	i;
+	int	r;
+
+	i = 0;
+	r = 1;
+	while (str[i])
+	{
+		if (i == 0 && (str[i] == '+' || str[i] == '-'))
+			i++;
+		if (!ft_isdigit(str[i]))
+			r = 0;
+		i++;
+	}
+	printf("r = %i\n", r);
+	return (r);
+}
+
 int	check_chars(t_list *lst)
 {
 	int	i;
@@ -57,6 +76,8 @@ int	check_chars(t_list *lst)
 	while (lst->next != NULL)
 	{
 		num = (char *)lst->content;
+		if (!check_sign(num))
+			return (0);
 		while (num[i])
 		{
 			if (ft_isdigit(num[i]) || is_sign(num[i]))
