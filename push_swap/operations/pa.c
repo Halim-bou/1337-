@@ -10,3 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../includes/push_swap.h"
+
+void	pa(t_list **lst_a, t_list **lst_b, int size_a, int size_b)
+{
+	t_list	*ptr;
+
+	if (size_b == 0)
+		return;
+	ptr = *lst_b;
+	*lst_b = (*lst_b)->next;
+	ptr->next = *lst_a;
+	(*lst_a)->prev = ptr;
+	*lst_a = (*lst_a)->prev;
+	write(1, "pb\n", 3);
+}

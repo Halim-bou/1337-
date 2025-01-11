@@ -15,6 +15,7 @@
 
 #include <unistd.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 /* Linked liste structer */
 typedef struct s_list
@@ -52,4 +53,10 @@ void	free_split(t_list **lst);
 //operations functions
 void	sa(t_list **lst_a, int size);
 void	sb(t_list **lst_b, int size);
+void	ss(t_list **lst_a, t_list **lst_b, int size_a, int size_b);
+void	pa(t_list **lst_a, t_list **lst_b, int size_a, int size_b);
+void	pb(t_list **lst_a, t_list **lst_b, int size_a, int size_b);
+void	rr(t_list **lst_a, t_list **lst_b);
+void	rb(t_list **head);
+void	ra(t_list **head);
 #endif

@@ -23,4 +23,5 @@ void	sb(t_list **lst_b, int size)
 	(*lst_b)->next = ptr->next;
 	ptr->next = *lst_b;
 	*lst_b = ptr;
+	write(1, "sb\n", 3);
 }

@@ -10,3 +10,22 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../includes/push_swap.h"
+
+void	ra(t_list **head)
+{
+	t_list	*tail;
+	t_list	*ptr;
+
+	if (ft_lstsize(*head) <= 1)
+		return;
+	tail = ft_lstlast(*head);
+	ptr = (*head)->next;
+	tail->next = *head;
+	(*head)->next = NULL;
+	tail = tail->next;
+	*head = ptr;
+	(*head)->prev = NULL;
+	ptr = NULL;
+	write(1, "ra\n", 3);
+}

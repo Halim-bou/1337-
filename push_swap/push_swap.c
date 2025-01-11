@@ -75,14 +75,17 @@ int main(int argc, char **argv)
 		write(2, "Error\n", 6);
 		return (1);
 	}
-	sa(&numbers, ft_lstsize(numbers));
-	sa(&numbers, ft_lstsize(numbers));
+	// t_list *test = NULL;
+	// test = ft_lstnew(NULL);
+	// test->num = 1;
+	// ft_lstadd_front(&test, ft_lstnew(NULL));
+	// pa(&, &test, ft_lstsize(numbers), ft_lstsize(test));
 	int tmp = 0;
 	t_list *ptr = numbers;
 	while (ptr->next)
 	{
 		tmp = ptr->num;
-		printf("res :%i\n", tmp);
+		printf("|  %i  |\n", tmp);
 		ptr = ptr->next;
 	}
 	if (nums != NULL)
