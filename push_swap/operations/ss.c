@@ -12,11 +12,10 @@
 
 #include "../includes/push_swap.h"
 
-void	ss(t_list **lst_a, t_list **lst_b, int size_a, int size_b)
+void	ss(t_list **lst_a, t_list **lst_b)
 {
-	if (size_a <= 1 && size_b <= 1)
-		return ;
-	sa(lst_a, size_a);
-	sb(lst_b, size_b);
+	t_list	*ptr;
+	sa(lst_a, 0);
+	sb(lst_b, 0);
 	write(1, "ss\n", 3);
 }

@@ -89,18 +89,6 @@ int	check_chars(t_list *lst)
 	}
 	return (1);
 }
-void	free_split(t_list **lst)
-{
-	t_list	*ptr;
-
-	ptr = *lst;
-	while(ptr->next)
-	{
-		free(ptr->content);
-		ptr = ptr->next;
-	}
-	free(ptr->content);
-}
 
 int	validation(t_list **lst)
 {

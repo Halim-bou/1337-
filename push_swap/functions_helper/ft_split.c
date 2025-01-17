@@ -12,7 +12,15 @@
 
 #include "../includes/push_swap.h"
 
-static int	count_words(char const *s, char c)
+static int	is_space(int c)
+{
+	if ((c >= 9 && c <= 13) || c == ' ')
+		return (1);
+	else
+		return (0);
+}
+
+static int	count_words(char const *s)
 {
 	size_t	i;
 
@@ -21,17 +29,17 @@ static int	count_words(char const *s, char c)
 		return (0);
 	while (*s)
 	{
-		while (*s == c)
+		while (is_space(*s))
 			s++;
 		if (*s)
 			i++;
-		while (*s && *s != c)
+		while (*s && !is_space(*s))
 			s++;
 	}
 	return (i + 1);
 }
 
-static void	free_all(char **arr, int last)
+static void	free_arr(char **arr, int last)
 {
 	while (last >= 0)
 	{
@@ -45,28 +53,28 @@ static char	*full_arr(char **arr, int j, size_t i, const char *s)
 	arr[j] = ft_substr(s, 0, i);
 	if (!arr[j])
 	{
-		free_all(arr, j - 1);
+		free_arr(arr, j - 1);
 		return (NULL);
 	}
 	return (arr[j]);
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_split(char const *s)
 {
 	size_t	i;
 	int		j;
 	char	**arr;
 
 	j = 0;
-	arr = malloc(sizeof(char *) * (count_words(s, c) + 1));
+	arr = malloc(sizeof(char *) * (count_words(s) + 1));
 	if (!arr)
 		return (NULL);
 	while (*s)
 	{
-		while (*s == c)
+		while (is_space(*s))
 			s++;
 		i = 0;
-		while (s[i] != '\0' && s[i] != c)
+		while (s[i] != '\0' && !is_space(s[i]))
 			i++;
 		if (i > 0)
 		{

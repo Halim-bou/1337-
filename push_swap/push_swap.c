@@ -11,21 +11,7 @@
 /* ************************************************************************** */
 
 #include "./includes/push_swap.h"
-#include <stdio.h>
 
-void	free_all(t_list **lst)
-{
-	t_list	*ptr;
-
-	ptr = *lst;
-	while ((*lst)->next)
-	{
-		*lst = (*lst)->next;
-		free(ptr);
-		ptr = *lst;
-	}
-	free(*lst);
-}
 void	*create_list(char **arr, int len)
 {
 	int	i;
@@ -42,6 +28,21 @@ void	*create_list(char **arr, int len)
 	}
 	return (head);
 }
+char	**store_values(char **arr, t_list **numbers)
+{
+	char	**nums;
+	int		i;
+
+	i = 0;
+	nums = NULL;
+	nums = ft_split(arr[1]);
+	if (!nums)
+		return (NULL);
+	while (!nums)
+		i++;
+	numbers = create_list(nums, i);
+	return (nums);
+}
 
 int main(int argc, char **argv)
 {
@@ -50,17 +51,13 @@ int main(int argc, char **argv)
 	int		i;
 
 	i = 0;
-	nums = NULL;
-	if (argc <= 1)
+	if (argc <= 1 || !argv[1][0])
 		return (1);
 	else if (argc == 2)
 	{
-		if (!argv[1][0])
+		nums = store_values(argv, &numbers);
+		if (!nums)
 			return (1);
-		nums = ft_split(argv[1], ' ');
-		while (nums[i])
-			i++;
-		numbers = create_list(nums, i);
 	}
 	else
 		numbers = create_list(argv + 1, argc - 1);

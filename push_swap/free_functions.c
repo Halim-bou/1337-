@@ -1,25 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rrr.c                                              :+:      :+:    :+:   */
+/*   free_functions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abelboua <abelboua@student.1337.ma>        #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-01-11 18:46:39 by abelboua          #+#    #+#             */
-/*   Updated: 2025-01-11 18:46:39 by abelboua         ###   ########.ma       */
+/*   Created: 2025-01-17 10:43:02 by abelboua          #+#    #+#             */
+/*   Updated: 2025-01-17 10:43:02 by abelboua         ###   ########.ma       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/push_swap.h"
+#include "./includes/push_swap.h"
 
-void	rrr(t_list **lst_a, t_list **lst_b)
+void	free_split(t_list **lst)
 {
-	t_list	*tail;
-	t_list	*n_tail;
+	t_list	*ptr;
 
-	if (!ft_lstsize(*lst_a) && !ft_lstsize(*lst_b))
-		return ;
-	rra(lst_a, 0);
-	rrb(lst_b, 0);
-	write(1, "rrr\n", 4);
+	ptr = *lst;
+	while(ptr->next)
+	{
+		free(ptr->content);
+		ptr = ptr->next;
+	}
+	free(ptr->content);
+}
+
+void	free_all(t_list **lst)
+{
+	t_list	*ptr;
+
+	ptr = *lst;
+	while ((*lst)->next)
+	{
+		*lst = (*lst)->next;
+		free(ptr);
+		ptr = *lst;
+	}
+	free(*lst);
 }

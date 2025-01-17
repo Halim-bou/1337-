@@ -16,7 +16,7 @@ void	rr(t_list **lst_a, t_list **lst_b)
 {
 	if (!ft_lstsize(*lst_a) && !ft_lstsize(*lst_b))
 		return ;
-	ra(lst_a);
-	rb(lst_b);
+	ra(lst_a, 0);
+	rb(lst_b, 0);
 	write(1, "rr\n", 3);
 }

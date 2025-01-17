@@ -12,7 +12,7 @@
 
 #include "../includes/push_swap.h"
 
-void	ra(t_list **head)
+void	ra(t_list **head, int p)
 {
 	t_list	*tail;
 	t_list	*ptr;
@@ -20,7 +20,7 @@ void	ra(t_list **head)
 	if (ft_lstsize(*head) <= 1)
 		return;
 	tail = *head;
-	while (tail->next->next != NULL)
+	while (tail->next != NULL)
 		tail = tail->next;
 	ptr = (*head)->next;
 	tail->next = *head;
@@ -30,5 +30,6 @@ void	ra(t_list **head)
 	*head = ptr;
 	(*head)->prev = NULL;
 	ptr = NULL;
-	write(1, "ra\n", 3);
+	if (p)
+		write(1, "ra\n", 3);
 }

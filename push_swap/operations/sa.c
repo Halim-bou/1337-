@@ -12,16 +12,17 @@
 
 #include "../includes/push_swap.h"
 
-void	sa(t_list **lst_a, int size)
+void	sa(t_list **lst_a, int p)
 {
 	int		temp;
 	t_list	*ptr;
 
-	if (size <= 1)
+	if (ft_lstsize(*lst_a) <= 1)
 		return;
 	ptr = (*lst_a)->next;
 	(*lst_a)->next = ptr->next;
 	ptr->next = *lst_a;
 	*lst_a = ptr;
-	write(1, "sa\n", 3);
+	if (p)
+		write(1, "sa\n", 3);
 }
