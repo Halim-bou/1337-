@@ -71,4 +71,5 @@ void	reverse_short(t_list **lst);
 int		stack_sorted(t_list **lst);
 int		stack_rev_sorted(t_list **lst);
 void	reverse_stack(t_list **lst);
+void	basic_sort(t_list **stack_a);
 #endif

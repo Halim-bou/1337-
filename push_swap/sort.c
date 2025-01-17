@@ -80,4 +80,23 @@ void	reverse_short(t_list **lst)
 	}
 }
 
+void	basic_sort(t_list **stack_a)
+{
+	t_list	*stack_b;
+
+	stack_b = NULL;
+	// if (stack_sorted(stack_a))
+	// 	return ;
+	while (*stack_a)
+	{
+		pa(stack_a, &stack_b, ft_lstsize(*stack_a), ft_lstsize(stack_b));
+		while(stack_b->next && (stack_b->num > stack_b->next->num))
+		{
+			sb(&stack_b, 1);
+			pb(stack_a, &stack_b, ft_lstsize(*stack_a), ft_lstsize(stack_b));
+		}
+	}
+	return ;
+}
+
 

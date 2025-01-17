@@ -1,5 +1,5 @@
 CC := cc
-CFLAGE := -Wall -Wextra -Werror
+CFLAGE := -g -Wall -Wextra -Werror
 HEADERS := $(wildcard includes/*.h)
 SRCS := $(wildcard ./*.c functions_helper/*.c operations/*.c)
 OBJS := $(SRCS:.c=.o)

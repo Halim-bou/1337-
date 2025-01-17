@@ -84,6 +84,6 @@ char	**ft_split(char const *s)
 		}
 		s += i;
 	}
-	arr[j] = 0;
+	arr[j] = NULL;
 	return (arr);
 }

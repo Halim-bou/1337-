@@ -34,10 +34,10 @@ int	check_dup(t_list *lst)
 {
 	t_list	*ptr;
 
-	while (lst->next != NULL)
+	while (lst->next)
 	{
 		ptr = lst->next;
-		while(ptr->next != NULL)
+		while(ptr)
 		{
 			if (lst->num == ptr->num)
 				return (0);
