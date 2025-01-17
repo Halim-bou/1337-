@@ -35,7 +35,7 @@ void	*create_list(char **arr, int len)
 	i = 0;
 	head = ft_lstnew(arr[i]);
 	i++;
-	while (i <= len)
+	while (i < len)
 	{
 		ft_lstadd_back(&head, ft_lstnew(arr[i]));
 		i++;
@@ -75,7 +75,7 @@ int main(int argc, char **argv)
 		write(2, "Error\n", 6);
 		return (1);
 	}
-	rra(&numbers);
+	///////////
 	int tmp = 0;
 	t_list *ptr = numbers;
 	while (ptr)
@@ -84,6 +84,7 @@ int main(int argc, char **argv)
 		printf("|  %i  |\n", tmp);
 		ptr = ptr->next;
 	}
+	////////////
 	if (nums != NULL)
 	{
 		free_split(&numbers);

@@ -15,17 +15,18 @@
 void	rra(t_list **lst)
 {
 	t_list	*tail;
+	t_list	*n_tail;
 
 	if (ft_lstsize(*lst) <= 1)
 		return ;
 	tail = *lst;
 	while (tail->next != NULL)
 		tail = tail->next;
+	n_tail = tail->prev;
+	n_tail->next = NULL;
 	tail->next = *lst;
 	(*lst)->prev = tail;
-	tail = tail->prev;
-	tail->next = NULL;
-	*lst = (*lst)->prev;
-	(*lst)->prev = NULL;
+	*lst = tail;
+	tail->prev = NULL;
 	write(1, "rra\n", 4);
 }

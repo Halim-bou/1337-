@@ -107,7 +107,7 @@ int	validation(t_list **lst)
 	t_list	*ptr;
 
 	ptr = *lst;
-	while (ptr->next)
+	while (ptr)
 	{
 		ptr->num = ft_atoil(ptr->content);
 		if (!(check_int(ptr->num)))
