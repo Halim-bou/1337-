@@ -16,12 +16,20 @@ void	pb(t_list **lst_a, t_list **lst_b, int size_a, int size_b)
 {
 	t_list	*ptr;
 
-	if (size_b == 0)
+	if (size_a == 0)
 		return;
+	if (size_a == 1)
+	{
+		ft_lstadd_front(lst_b, *lst_a);
+		*lst_a = NULL;
+		write(1, "pb\n", 3);
+		return;
+	}
 	ptr = *lst_a;
-	*lst_a = (*lst_a)->next;
+	(*lst_a) = (*lst_a)->next;
+	(*lst_a)->prev = NULL;
 	ptr->next = *lst_b;
-	(*lst_b)->prev = ptr;
-	*lst_b = (*lst_b)->prev;
+	ptr->prev = NULL;
+	*lst_b = ptr;
 	write(1, "pb\n", 3);
 }

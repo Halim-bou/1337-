@@ -61,18 +61,18 @@ int main(int argc, char **argv)
 		return (1);
 	}
 	///////////
-	//basic_sort(&numbers);
-	t_list	*b = NULL;
-	pb(&numbers, &b, ft_lstsize(numbers), ft_lstsize(b));
+	basic_sort(&numbers);
+	//t_list	*b = NULL;
+	//pb(&numbers, &b, ft_lstsize(numbers), ft_lstsize(b));
 	// pb(&numbers, &numbers, ft_lstsize(numbers), ft_lstsize(numbers));
-	int tmp = 0;
-	t_list *ptr = numbers;
-	while (ptr)
-	{
-		tmp = ptr->num;
-		printf("|  %i  |\n", tmp);
-		ptr = ptr->next;
-	}
+	// int tmp = 0;
+	// t_list *ptr = numbers;
+	// while (ptr)
+	// {
+	// 	tmp = ptr->num;
+	// 	printf("|  %i  |\n", tmp);
+	// 	ptr = ptr->next;
+	// }
 	////////////
 	if (nums != NULL)
 	{
