@@ -12,6 +12,15 @@
 
 #include "./includes/push_swap.h"
 
+void	print(t_list *lst)
+{
+	while(lst)
+	{
+		printf("| %li |\n", lst->num);
+		lst = lst->next;
+	}
+}
+
 int	stack_sorted(t_list **lst)
 {
 	t_list	*ptr;
@@ -39,19 +48,15 @@ int	stack_rev_sorted(t_list **lst)
 	return (1);
 }
 
-void	reverse_stack(t_list **lst)
+void	reverse_stack(t_list **stack_a, t_list **stack_b)
 {
-	t_list	*ptr;
-	int		i;
-
-	ptr = NULL;
-	i = ft_lstsize(*lst);
-	while (*lst)
-		pa(lst, &ptr, ft_lstsize(*lst), ft_lstsize(ptr));
-	while (ptr)
+	while (*stack_a)
+		pb(stack_a, stack_b, ft_lstsize(*stack_a), ft_lstsize(*stack_b));
+	print(*stack_b);
+	while (*stack_b)
 	{
-		pb(lst, &ptr, ft_lstsize(*lst), ft_lstsize(ptr));
-		ra(lst, 1);
+		pa(stack_a, stack_b, ft_lstsize(*stack_a), ft_lstsize(*stack_b));
+		ra(stack_a, 1);
 	}
 }
 
@@ -80,21 +85,18 @@ void	reverse_short(t_list **lst)
 	}
 }
 
-void	print(t_list *lst)
-{
-	while(lst)
-	{
-		printf("| %li |\n", lst->num);
-		lst = lst->next;
-	}
-}
 void	basic_sort(t_list **stack_a)
 {
 	t_list	*stack_b;
 
 	stack_b = NULL;
-	// if (stack_sorted(stack_a))
-	// 	return ;
+	if (stack_sorted(stack_a))
+		return ;
+	if (stack_rev_sorted(stack_a))
+	{
+		reverse_stack(stack_a, &stack_b);
+		return ;
+	}
 	while (*stack_a)
 	{
 		pb(stack_a, &stack_b, ft_lstsize(*stack_a), ft_lstsize(stack_b));
