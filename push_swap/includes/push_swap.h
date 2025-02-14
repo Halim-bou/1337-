@@ -70,6 +70,6 @@ void	free_all(t_list **lst);
 void	reverse_short(t_list **lst);
 int		stack_sorted(t_list **lst);
 int		stack_rev_sorted(t_list **lst);
-void	reverse_stack(t_list **lst);
+void	reverse_stack(t_list **stack_a, t_list **stack_b);
 void	basic_sort(t_list **stack_a);
 #endif
