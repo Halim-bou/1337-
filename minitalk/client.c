@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "./headers/mini_talk.h"
-#include <signal.h>
 
 void	send_signal(char *str, int pid)
 {
@@ -49,7 +48,7 @@ int main(int argc, char **argv)
 
 	if (argc != 3)
 		return EXIT_FAILURE;
-	pid = atoi(argv[1]);
+	pid = ft_atoi(argv[1]);
 	str = argv[2];
 	send_signal(str, pid);
 	return EXIT_SUCCESS;

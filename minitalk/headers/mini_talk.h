@@ -7,6 +7,7 @@
 #include <stddef.h>
 #include <signal.h>
 
-
+int	ft_atoi(const char *nbr);
+void	ft_putnbr(int n);
 
 #endif

@@ -26,6 +26,7 @@ void	sig_handel(int sig)
 			write(1, "\n", 1);
 		else
 			write(1, &c, 1);
+		fflush(stdout);
 		c = 0;
 		b = 0;
 	}
@@ -33,7 +34,7 @@ void	sig_handel(int sig)
 
 int main(void)
 {
-	struct sigaction sa = {0};
+	struct sigaction sa;
 
 	sa.sa_handler = sig_handel;
 	sigemptyset(&sa.sa_mask);
@@ -43,8 +44,9 @@ int main(void)
 		perror("sigaction failed");
 		return EXIT_FAILURE;
 	}
-
-	printf("PID = %i\n", getpid());
+	write(1, "PID: ", 5);
+	ft_putnbr(getpid());
+	write(1, "\n", 1);
 	while (1)
 		pause();
 	return (EXIT_SUCCESS);
