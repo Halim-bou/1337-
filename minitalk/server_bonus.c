@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   server_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abelboua <abelboua@student.1337.ma>        #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-02-14 14:07:22 by abelboua          #+#    #+#             */
-/*   Updated: 2025-02-14 14:07:22 by abelboua         ###   ########.ma       */
+/*   Created: 2025-03-07 00:49:42 by abelboua          #+#    #+#             */
+/*   Updated: 2025-03-07 00:49:42 by abelboua         ###   ########.ma       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./headers/mini_talk.h"
+#include "./headers/mini_talk_bonus.h"
 
 void	sig_handel(int sig, siginfo_t *info, __attribute__((unused))void *data)
 {

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   client_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abelboua <abelboua@student.1337.ma>        #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-02-14 14:07:36 by abelboua          #+#    #+#             */
-/*   Updated: 2025-02-14 14:07:36 by abelboua         ###   ########.ma       */
+/*   Created: 2025-03-07 00:48:58 by abelboua          #+#    #+#             */
+/*   Updated: 2025-03-07 00:48:58 by abelboua         ###   ########.ma       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./headers/mini_talk.h"
+#include "./headers/mini_talk_bonus.h"
 
 static void	send_signal(char *str, int pid)
 {
@@ -28,7 +28,7 @@ static void	send_signal(char *str, int pid)
 			else
 				kill(pid, SIGUSR2);
 			j--;
-			usleep(500);
+			usleep(400);
 		}
 		i++;
 	}
@@ -36,7 +36,7 @@ static void	send_signal(char *str, int pid)
 	while (j >= 0)
 	{
 		kill(pid, SIGUSR2);
-		usleep(500);
+		usleep(400);
 		j--;
 	}
 }
@@ -47,16 +47,10 @@ int	main(int argc, char **argv)
 	char	*str;
 
 	if (argc != 3)
-	{
-		write(1, "## Bad request: <PID> <MESSAGE>\n", 33);
 		return (-1);
-	}
 	pid = ft_atoi(argv[1]);
 	if (pid == -1)
-	{
-		write(1, "## bad PID!\n", 12);
 		return (-1);
-	}
 	str = argv[2];
 	send_signal(str, pid);
 	return (0);
