@@ -40,10 +40,15 @@ void	sig_handel(int sig, siginfo_t *info, __attribute__((unused))void *data)
 	}
 }
 
-int	main(void)
+int	main(int argc, __attribute__((unused))char **argv)
 {
 	struct sigaction	sa;
 
+	if (argc != 1)
+	{
+		write(1, "Error: Server acctept no arguments!!\n", 36);
+		return (-1);
+	}
 	write(1, "Server <PID>: ", 14);
 	ft_putnbr(getpid());
 	write(1, "\n", 1);

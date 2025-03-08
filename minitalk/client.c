@@ -48,13 +48,13 @@ int	main(int argc, char **argv)
 
 	if (argc != 3)
 	{
-		write(1, "## Bad request: <PID> <MESSAGE>\n", 33);
+		write(1, "Error: Bad request: <PID> <MESSAGE>\n", 37);
 		return (-1);
 	}
 	pid = ft_atoi(argv[1]);
-	if (pid == -1)
+	if (pid == -1 || kill(pid, 0) == -1)
 	{
-		write(1, "## bad PID!\n", 12);
+		write(1, "Error: Bad PID!\n", 15);
 		return (-1);
 	}
 	str = argv[2];
