@@ -12,14 +12,16 @@
 
 #include "./headers/mini_talk.h"
 
-void sig_handler(int sig, siginfo_t *info, __attribute__((unused))void *data) {
+void sig_handler(int sig, siginfo_t *info, __attribute__((unused))void *data)
+{
     static char     c;
     static int      bit;
     static pid_t    last_pid;
     pid_t           current_pid;
 
     current_pid = info->si_pid;
-    if (last_pid != 0 && last_pid != current_pid) {
+    if (last_pid != 0 && last_pid != current_pid)
+    {
         c = 0;
         bit = 0;
         write(1, "\nNew client connected\n", 22);
@@ -28,28 +30,24 @@ void sig_handler(int sig, siginfo_t *info, __attribute__((unused))void *data) {
 
     if (sig == SIGUSR1)
         c |= (1 << (7 - bit));
-
     bit++;
-
     if (bit == 8)
 	{
-        if (c == '\0') {
-            write(1, "\nMessage complete\n", 18);
-            kill(current_pid, SIGUSR2);
+        if (c == '\0')
             return;
-        } else {
+        else
             write(1, &c, 1);
-        }
         c = 0;
         bit = 0;
     }
-
     if (kill(current_pid, SIGUSR1) == -1) {
-        write(2, "\nError: Failed to send acknowledgment\n", 38);
+        write(2, "\nError: Failed to send acknowledgment 1\n", 38);
+        exit(1);
     }
 }
 
-int main(int argc, __attribute__((unused))char **argv) {
+int main(int argc, __attribute__((unused))char **argv)
+{
     struct sigaction    sa;
 
     if (argc != 1) {
