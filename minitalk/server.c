@@ -6,52 +6,74 @@
 /*   By: abelboua <abelboua@student.1337.ma>        #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025-02-14 14:07:22 by abelboua          #+#    #+#             */
-/*   Updated: 2025-02-14 14:07:22 by abelboua         ###   ########.ma       */
+/*   Updated: 2025/03/10 00:08:46 by abelboua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./headers/mini_talk.h"
 
-void	sig_handler(int sig, siginfo_t *info, void *data)
-{
-	static int				i = 0;
-	static pid_t			client_pid = 0;
-	static unsigned char	c = 0;
+void sig_handler(int sig, siginfo_t *info, __attribute__((unused))void *data) {
+    static char     c;
+    static int      bit;
+    static pid_t    last_pid;
+    pid_t           current_pid;
 
-	(void)data;
-	if (!client_pid)
-		client_pid = info->si_pid;
-	c |= (sig == SIGUSR2);
-	if (++i == 8)
+    current_pid = info->si_pid;
+    if (last_pid != 0 && last_pid != current_pid) {
+        c = 0;
+        bit = 0;
+        write(1, "\nNew client connected\n", 22);
+    }
+    last_pid = current_pid;
+
+    if (sig == SIGUSR1)
+        c |= (1 << (7 - bit));
+
+    bit++;
+
+    if (bit == 8)
 	{
-		i = 0;
-		if (!c)
-		{
-			//kill(client_pid, SIGUSR2);
-			client_pid = 0;
-			return ;
-		}
-		write(1, &c, 1);
-		c = 0;
-		//kill(client_pid, SIGUSR1);
-	}
-	else
-		c <<= 1;
+        if (c == '\0') {
+            write(1, "\nMessage complete\n", 18);
+            kill(current_pid, SIGUSR2);
+            return;
+        } else {
+            write(1, &c, 1);
+        }
+        c = 0;
+        bit = 0;
+    }
+
+    if (kill(current_pid, SIGUSR1) == -1) {
+        write(2, "\nError: Failed to send acknowledgment\n", 38);
+    }
 }
 
-int main(void)
-{
-	struct sigaction sa;
+int main(int argc, __attribute__((unused))char **argv) {
+    struct sigaction    sa;
 
-	write(1, "PID: ", 5);
-	ft_putnbr(getpid());
-	write(1, "\n", 1);
-	sa.sa_sigaction = sig_handler;
+    if (argc != 1) {
+        write(2, "Error: Server accepts no arguments!\n", 36);
+        return (1);
+    }
+
+    write(1, "Server <PID>: ", 14);
+    ft_putnbr(getpid());
+    write(1, "\n", 1);
+
+
+
+    sa.sa_sigaction = sig_handler;
 	sigemptyset(&sa.sa_mask);
-	sa.sa_flags = SA_SIGINFO;
-	sigaction(SIGUSR1, &sa, NULL);
-	sigaction(SIGUSR2, &sa, NULL);
-	while (1)
-		pause();
-	return (0);
+    sa.sa_flags = SA_SIGINFO;
+
+    if ((sigaction(SIGUSR1, &sa, NULL) == -1) || (sigaction(SIGUSR2, &sa, NULL) == -1)) {
+        write(2, "Error: Failed to set up signal handlers\n", 39);
+        return (1);
+    }
+
+    while (1)
+        pause();
+
+    return (0);
 }
