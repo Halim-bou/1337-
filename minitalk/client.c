@@ -24,9 +24,9 @@ void	send_signal(char *str, int pid)
 		while(j>= 0)
 		{
 			if ((str[i]>>j)&1)
-				kill(pid, SIGUSR1);
-			else
 				kill(pid, SIGUSR2);
+			else
+				kill(pid, SIGUSR1);
 			j--;
 			usleep(500);
 		}

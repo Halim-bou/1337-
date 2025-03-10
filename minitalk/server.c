@@ -12,42 +12,46 @@
 
 #include "./headers/mini_talk.h"
 
-void	sig_handel(int sig)
+void	sig_handler(int sig, siginfo_t *info, void *data)
 {
-	static char	c = 0;
-	static int	b = 0;
+	static int				i = 0;
+	static pid_t			client_pid = 0;
+	static unsigned char	c = 0;
 
-	if (sig == SIGUSR1)
-		c |= (1 << (7 - b));
-	b++;
-	if (b == 8)
+	(void)data;
+	if (!client_pid)
+		client_pid = info->si_pid;
+	c |= (sig == SIGUSR2);
+	if (++i == 8)
 	{
-		if (c == '\0')
-			write(1, "\n", 1);
-		else
-			write(1, &c, 1);
-		fflush(stdout);
+		i = 0;
+		if (!c)
+		{
+			//kill(client_pid, SIGUSR2);
+			client_pid = 0;
+			return ;
+		}
+		write(1, &c, 1);
 		c = 0;
-		b = 0;
+		//kill(client_pid, SIGUSR1);
 	}
+	else
+		c <<= 1;
 }
 
 int main(void)
 {
 	struct sigaction sa;
 
-	sa.sa_handler = sig_handel;
-	sigemptyset(&sa.sa_mask);
-	sa.sa_flags = 0;
-	if (sigaction(SIGUSR1, &sa, NULL) == -1 || (sigaction(SIGUSR2, &sa, NULL) == -1))
-	{
-		perror("sigaction failed");
-		return EXIT_FAILURE;
-	}
 	write(1, "PID: ", 5);
 	ft_putnbr(getpid());
 	write(1, "\n", 1);
+	sa.sa_sigaction = sig_handler;
+	sigemptyset(&sa.sa_mask);
+	sa.sa_flags = SA_SIGINFO;
+	sigaction(SIGUSR1, &sa, NULL);
+	sigaction(SIGUSR2, &sa, NULL);
 	while (1)
 		pause();
-	return (EXIT_SUCCESS);
+	return (0);
 }
