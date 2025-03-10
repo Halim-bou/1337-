@@ -14,7 +14,7 @@ CLIENT_OBJ_BONUS = $(CLIENT_SRC_BONUS:.c=.o)
 SERVER_NAME = server
 CLIENT_NAME = client
 
-all: $(SERVER_OBJ) $(CLIENT_OBJ) $(SERVER_NAME) $(CLIENT_NAME)
+all: $(SERVER_NAME) $(CLIENT_NAME)
 
 bonus: $(SERVER_OBJ_BONUS) $(CLIENT_OBJ_BONUS)
 			$(CC) $(SERVER_OBJ_BONUS) -o $(SERVER_NAME)
@@ -33,6 +33,8 @@ clean:
 			rm -rf $(SERVER_OBJ) $(CLIENT_OBJ) $(SERVER_OBJ_BONUS) $(CLIENT_OBJ_BONUS)
 fclean: clean
 			rm -rf $(SERVER_NAME) $(CLIENT_NAME)
-re: fclean all bonus
+re: fclean all
+
+.SECONDARY : $(SERVER_OBJ) $(CLIENT_OBJ) $(SERVER_OBJ_BONUS) $(CLIENT_OBJ_BONUS)
 
 .PHONY: clean fclean re all bonus
