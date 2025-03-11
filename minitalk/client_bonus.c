@@ -3,55 +3,104 @@
 /*                                                        :::      ::::::::   */
 /*   client_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abelboua <abelboua@student.1337.ma>        #+#  +:+       +#+        */
+/*   By: abelboua <abelboua@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-03-07 00:48:58 by abelboua          #+#    #+#             */
-/*   Updated: 2025-03-07 00:48:58 by abelboua         ###   ########.ma       */
+/*   Created: 2025/03/07 00:48:58 by abelboua          #+#    #+#             */
+/*   Updated: 2025/03/11 03:00:24 by abelboua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./headers/mini_talk_bonus.h"
 
-static void	send_signal(char *str, int pid)
-{
-	int	i;
-	int	j;
+typedef struct s_data {
+	char	*message;
+	int		server_pid;
+	int		bit_position;
+	int		char_index;
+}	t_data;
 
-	i = 0;
-	while (str[i])
+t_data	g_data;
+
+void	send_kill(int sig)
+{
+	if (kill(g_data.server_pid, sig) == -1)
 	{
-		j = 7;
-		while (j >= 0)
-		{
-			if ((str[i] >> j) & 1)
-				kill(pid, SIGUSR1);
-			else
-				kill(pid, SIGUSR2);
-			j--;
-			usleep(400);
-		}
-		i++;
+		write(2, "Error: Failed to send bit to server\n", 36);
+		exit(1);
 	}
-	j = 7;
-	while (j >= 0)
+}
+
+void	send_bit(void)
+{
+	int	current_char;
+
+	current_char = (unsigned char)g_data.message[g_data.char_index];
+	if (current_char == '\0' && g_data.bit_position == 7)
 	{
-		kill(pid, SIGUSR2);
-		usleep(400);
-		j--;
+		send_kill(SIGUSR2);
+		return ;
 	}
+	if ((current_char >> g_data.bit_position) & 1)
+		send_kill(SIGUSR1);
+	else
+		send_kill(SIGUSR2);
+}
+
+void	sig_handler(int sig)
+{
+	if (sig == SIGUSR2)
+	{
+		write(1, "Message was send successfuly\n", 30);
+		exit(0);
+	}
+	else if (g_data.bit_position == 0)
+	{
+		g_data.bit_position = 7;
+		g_data.char_index++;
+		if (g_data.message[g_data.char_index -1] == '\0')
+			exit(0);
+	}
+	else
+		g_data.bit_position--;
+	send_bit();
+}
+
+int	sig_set(struct sigaction *sa_usr)
+{
+	(*sa_usr).sa_handler = sig_handler;
+	sigemptyset(&(*sa_usr).sa_mask);
+	(*sa_usr).sa_flags = 0;
+	if (sigaction(SIGUSR1, sa_usr, NULL) == -1
+		|| sigaction(SIGUSR2, sa_usr, NULL) == -1)
+	{
+		write(2, "Error: Failed to set up signal handlers\n", 39);
+		return (1);
+	}
+	send_bit();
+	while (1)
+		pause();
+	return (0);
 }
 
 int	main(int argc, char **argv)
 {
-	int		pid;
-	char	*str;
+	struct sigaction	sa_usr;
 
 	if (argc != 3)
-		return (-1);
-	pid = ft_atoi(argv[1]);
-	if (pid == -1)
-		return (-1);
-	str = argv[2];
-	send_signal(str, pid);
+	{
+		write(2, "Error: ./client <SERVER_PID> <MESSAGE>\n", 39);
+		return (1);
+	}
+	g_data.message = argv[2];
+	g_data.server_pid = ft_atoi(argv[1]);
+	g_data.bit_position = 7;
+	g_data.char_index = 0;
+	if (g_data.server_pid <= 0 || kill(g_data.server_pid, 0) == -1)
+	{
+		write(2, "Error: Invalid server PID\n", 26);
+		return (1);
+	}
+	if (sig_set(&sa_usr))
+		return (1);
 	return (0);
 }

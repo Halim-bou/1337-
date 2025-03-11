@@ -3,19 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abelboua <abelboua@student.1337.ma>        #+#  +:+       +#+        */
+/*   By: abelboua <abelboua@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-03-11 00:39:18 by abelboua          #+#    #+#             */
-/*   Updated: 2025-03-11 00:39:18 by abelboua         ###   ########.ma       */
+/*   Created: 2025/03/11 01:42:02 by abelboua          #+#    #+#             */
+/*   Updated: 2025/03/11 03:01:08 by abelboua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./headers/mini_talk.h"
 
+void	check_kill(pid_t pid, int sig)
+{
+	if (kill(pid, sig) == -1)
+	{
+		write(2, "\nError: Failed to send acknowledgment 1\n", 38);
+		exit(1);
+	}
+}
+
 void	sig_handler(int sig, siginfo_t *info, __attribute__((unused))void *data)
 {
 	static char		c;
-	static int 		bit;
+	static int		bit;
 	static pid_t	last_pid;
 	pid_t			current_pid;
 
@@ -24,7 +33,6 @@ void	sig_handler(int sig, siginfo_t *info, __attribute__((unused))void *data)
 	{
 		c = 0;
 		bit = 0;
-		write(1, "\nNew client connected\n", 22);
 	}
 	last_pid = current_pid;
 	if (sig == SIGUSR1)
@@ -33,28 +41,18 @@ void	sig_handler(int sig, siginfo_t *info, __attribute__((unused))void *data)
 	if (bit == 8)
 	{
 		if (c == '\0')
-		{
-			if (kill(current_pid, SIGUSR2) == -1)
-			{
-				write(2, "\nError: Failed to send acknowledgment 1\n", 38);
-				exit(1);
-			}
-		}
+			check_kill(current_pid, SIGUSR2);
 		else
 			write(1, &c, 1);
 		c = 0;
 		bit = 0;
 	}
-	if (kill(current_pid, SIGUSR1) == -1)
-	{
-		write(2, "\nError: Failed to send acknowledgment 1\n", 38);
-		exit(1);
-	}
+	check_kill(current_pid, SIGUSR1);
 }
 
 int	main(int argc, __attribute__((unused))char **argv)
 {
-	struct sigaction    sa;
+	struct sigaction	sa;
 
 	if (argc != 1)
 	{
