@@ -6,7 +6,7 @@
 /*   By: abelboua <abelboua@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 05:45:12 by abelboua          #+#    #+#             */
-/*   Updated: 2025/03/18 07:05:53 by abelboua         ###   ########.fr       */
+/*   Updated: 2025/03/19 06:40:39 by abelboua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 #include <math.h>
 #include <stdio.h>
 #include <unistd.h>
+#include "/usr/include/X11/X.h"
+#include "/usr/include/X11/keysym.h"
 
 
 #define WIDTH 799
@@ -71,11 +73,21 @@ typedef struct s_fractol
 
 	double	v_escape;
 	int		iteration_value;
+
+	double	shifting_x;
+	double	shifting_y;
+	double	mult_zoom;
 }				t_fractol;
 
 //helpers
 void	ft_putstr_fd(char *s, int fd);
 int	ft_strncmp(const char *s1, const char *s2, size_t n);
+
+//functiont events handlers
+int	key_handle(int keycode, t_fractol *fractol);
+int	stop_handle(t_fractol *fractol);
+int	button_handle(int button, int x, int y, t_fractol *fractol);
+
 
 //math_fun
 t_cnbr	square_of_complex_nbr(t_cnbr z);

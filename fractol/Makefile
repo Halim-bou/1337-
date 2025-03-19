@@ -1,5 +1,5 @@
 CC := cc
-CFLAGS := -Wall -Wextra -Werror
+CFLAGS := -Wall -Wextra -Werror -g
 MLX_DIR = /usr/include/minilibx-linux
 MLX_LIB = -lmlx -L$(MLX_DIR) -lXext -lX11
 NAME := fractol

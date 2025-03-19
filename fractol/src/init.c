@@ -6,7 +6,7 @@
 /*   By: abelboua <abelboua@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 01:43:25 by abelboua          #+#    #+#             */
-/*   Updated: 2025/03/18 07:48:04 by abelboua         ###   ########.fr       */
+/*   Updated: 2025/03/19 06:38:44 by abelboua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@ void	data_init(t_fractol *fractol)
 {
 	fractol->v_escape = 4;
 	fractol->iteration_value = 42;
+	fractol->shifting_x = 0.0;
+	fractol->shifting_y = 0.0;
+	fractol->mult_zoom = 1.0;
 }
 
 void	event_init(t_fractol *fractol)
@@ -29,7 +32,17 @@ void	event_init(t_fractol *fractol)
 	mlx_hook(fractol->mlx_win,
 			KeyPress,
 			KeyPressMask,
-			Key_handle,
+			key_handle,
+			fractol);
+	mlx_hook(fractol->mlx_win,
+			ButtonPress,
+			ButtonPressMask,
+			button_handle,
+			fractol);
+	mlx_hook(fractol->mlx_win,
+			DestroyNotify,
+			StructureNotifyMask,
+			stop_handle,
 			fractol);
 }
 
@@ -59,5 +72,6 @@ void	fractol_init(t_fractol *fractol)
 								&fractol->img.bits_per_pixel,
 								&fractol->img.line_length,
 								&fractol->img.endian);
+	event_init(fractol);
 	data_init(fractol);
 }
