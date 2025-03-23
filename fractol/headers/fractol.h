@@ -6,7 +6,7 @@
 /*   By: abelboua <abelboua@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 05:45:12 by abelboua          #+#    #+#             */
-/*   Updated: 2025/03/19 06:40:39 by abelboua         ###   ########.fr       */
+/*   Updated: 2025/03/23 18:04:47 by abelboua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,30 +70,48 @@ typedef struct s_fractol
 	void	*mlx_win;
 	char	*name;
 	t_img	img;
-
 	double	v_escape;
 	int		iteration_value;
-
 	double	shifting_x;
 	double	shifting_y;
 	double	mult_zoom;
+	int		*color_map;
+	double	julia_x;
+	double	julia_y;
+	char	**julia_params;
 }				t_fractol;
 
 //helpers
 void	ft_putstr_fd(char *s, int fd);
-int	ft_strncmp(const char *s1, const char *s2, size_t n);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
 
-//functiont events handlers
-int	key_handle(int keycode, t_fractol *fractol);
-int	stop_handle(t_fractol *fractol);
-int	button_handle(int button, int x, int y, t_fractol *fractol);
+//functiont handler.c
+void	update_fractol_params(t_fractol *fractol);
+void	cleanup_fractol(t_fractol *fractol);
+int		stop_handle(t_fractol *fractol);
+int		key_handle(int keycode, t_fractol *fractol);
+int		button_handle(int button, int x, int y, t_fractol *fractol);
 
+//functions render.c
+void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
+void	init_color_map(t_fractol *fractol);
+void	calculate_complex_coordinates(int x, int y, t_fractol *fractol,
+											t_cnbr *c);
+void	handel_pixel_set(int x, int y, t_fractol *fractol);
+void	fractol_render(t_fractol *fractol);
+
+//julia
+int		calculate_julia(t_cnbr z, t_fractol *fractol);
+//madelbrot
+int		calculate_mandelbrot(t_cnbr c, t_fractol *fractol);
+
+//Function init.c
+void	fractol_init(t_fractol *fractol);
+void	event_init(t_fractol *fractol);
+void	data_init(t_fractol *fractol);
+void	mlx_allocation_error(void);
 
 //math_fun
-t_cnbr	square_of_complex_nbr(t_cnbr z);
-t_cnbr	sum_of_complex_nbr(t_cnbr a, t_cnbr b);
-double	map_normalizer(double unscaledNum, double x, double y, double old_x, double old_y);
-//functions
-void	fractol_render(t_fractol *fractol);
-void	fractol_init(t_fractol *fractol);
+double	map_normalizer(double unscaledNum, double x, double y, double old_y);
+
 # endif
