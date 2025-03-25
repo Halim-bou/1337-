@@ -1,36 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   julia.c                                            :+:      :+:    :+:   */
+/*   clear.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abelboua <abelboua@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/21 06:19:35 by abelboua          #+#    #+#             */
-/*   Updated: 2025/03/25 03:21:26 by abelboua         ###   ########.fr       */
+/*   Created: 2025/03/25 02:20:40 by abelboua          #+#    #+#             */
+/*   Updated: 2025/03/25 06:40:00 by abelboua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/fractol.h"
 
-int	calculate_julia(t_cnbr z, t_fractol *fractol)
+void	clear_fractol(t_fractol *fractol)
 {
-	t_cnbr	c;
-	int		i;
-	double	z_squared_mag;
-	double	x_new;
-
-	c.x = fractol->julia_x;
-	c.y = fractol->julia_y;
-	i = 0;
-	while (i < fractol->iteration_value)
+	if (fractol->img.img)
+		mlx_destroy_image(fractol->mlx_in, fractol->img.img);
+	if (fractol->mlx_win)
+		mlx_destroy_window(fractol->mlx_in, fractol->mlx_win);
+	if (fractol->mlx_in)
 	{
-		z_squared_mag = z.x * z.x + z.y * z.y;
-		if (z_squared_mag > fractol->v_escape)
-			return (i);
-		x_new = z.x * z.x - z.y * z.y + c.x;
-		z.y = 2.0 * z.x * z.y + c.y;
-		z.x = x_new;
-		i++;
+		mlx_destroy_display(fractol->mlx_in);
+		free(fractol->mlx_in);
 	}
-	return (i);
+	mlx_allocation_error();
+}
+
+void	mlx_allocation_error(void)
+{
+	perror("Error: Problem with memory allocation!!");
+	exit(EXIT_FAILURE);
 }

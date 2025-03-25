@@ -6,7 +6,7 @@
 /*   By: abelboua <abelboua@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 02:29:56 by abelboua          #+#    #+#             */
-/*   Updated: 2025/03/23 18:04:26 by abelboua         ###   ########.fr       */
+/*   Updated: 2025/03/25 15:56:57 by abelboua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,59 +33,41 @@ void	handel_pixel_set(int x, int y, t_fractol *fractol)
 {
 	t_cnbr	c;
 	int		iterations;
-	int		color;
 
 	calculate_complex_coordinates(x, y, fractol, &c);
-	if (ft_strncmp(fractol->name, "mandelbrot", 10) == 0)
-		iterations = calculate_mandelbrot(c, fractol);
-	else if (ft_strncmp(fractol->name, "julia", 5) == 0)
+	if (ft_strncmp(fractol->name, "julia", 5) == 0)
 		iterations = calculate_julia(c, fractol);
 	else
 		iterations = calculate_mandelbrot(c, fractol);
 	if (iterations < fractol->iteration_value)
-		color = fractol->color_map[iterations];
+	{
+		if (iterations == 0)
+			iterations = 1;
+		my_mlx_pixel_put(&fractol->img, x, y,
+			(fractol->color / iterations) * fractol->iteration_value);
+	}
 	else
-		color = BLACK;
-	my_mlx_pixel_put(&fractol->img, x, y, color);
+	{
+		my_mlx_pixel_put(&fractol->img, x, y, 0x000000);
+	}
 }
 
-void	pixel_set(int tile_x, int tile_y, int tile_size, t_fractol *fractol)
+void	fractol_render(t_fractol *fractol)
 {
 	int	x;
 	int	y;
 
-	y = tile_y;
-	while (y < tile_y + tile_size && y < HEIGHT)
+	y = 0;
+	while (y < HEIGHT)
 	{
-		x = tile_x;
-		while (x < tile_x + tile_size && x < WIDTH)
+		x = 0;
+		while (x < WIDTH)
 		{
 			handel_pixel_set(x, y, fractol);
 			x++;
 		}
 		y++;
 	}
-}
-
-void	fractol_render(t_fractol *fractol)
-{
-	int	tile_x;
-	int	tile_y;
-	int	tile_size;
-
-	tile_size = 100;
-	init_color_map(fractol);
-	tile_y = 0;
-	while (tile_y < HEIGHT)
-	{
-		tile_x = 0;
-		while (tile_x < WIDTH)
-		{
-			pixel_set(tile_x, tile_y, tile_size, fractol);
-			mlx_put_image_to_window(fractol->mlx_in,
-				fractol->mlx_win, fractol->img.img, 0, 0);
-			tile_x += tile_size;
-		}
-		tile_y += tile_size;
-	}
+	mlx_put_image_to_window(fractol->mlx_in, fractol->mlx_win,
+		fractol->img.img, 0, 0);
 }

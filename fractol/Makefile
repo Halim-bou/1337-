@@ -20,3 +20,6 @@ fclean: clean
 
 re: fclean all
 
+.PHONY: re all clean fclean
+.SECONDARY: $(OBJS)
+
