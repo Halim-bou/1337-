@@ -6,7 +6,7 @@
 /*   By: abelboua <abelboua@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 02:20:40 by abelboua          #+#    #+#             */
-/*   Updated: 2025/03/25 06:40:00 by abelboua         ###   ########.fr       */
+/*   Updated: 2025/03/25 23:10:10 by abelboua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,6 @@ void	clear_fractol(t_fractol *fractol)
 
 void	mlx_allocation_error(void)
 {
-	perror("Error: Problem with memory allocation!!");
+	perror("Error: Problem with memory allocation!!\n");
 	exit(EXIT_FAILURE);
 }

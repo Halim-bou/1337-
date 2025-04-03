@@ -6,7 +6,7 @@
 /*   By: abelboua <abelboua@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 17:04:18 by abelboua          #+#    #+#             */
-/*   Updated: 2025/03/25 15:50:38 by abelboua         ###   ########.fr       */
+/*   Updated: 2025/03/25 23:10:00 by abelboua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	main(int ac, char **av)
 {
 	t_fractol	fractol;
 
+	fractol = (t_fractol){0};
 	if ((ac == 2 && (ft_strncmp(av[1], "mandelbrot", 10) == 0))
 		|| (ac == 4 && (ft_strncmp(av[1], "julia", 5) == 0)))
 	{
@@ -28,7 +29,7 @@ int	main(int ac, char **av)
 	}
 	else
 	{
-		ft_putstr_fd("ERROR: ARGS: <julia> <n1> <n2> |or| <mandelbort>\n", 2);
+		ft_putstr_fd(ERROR_ARGS, 2);
 		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);

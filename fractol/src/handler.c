@@ -6,7 +6,7 @@
 /*   By: abelboua <abelboua@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 21:40:30 by abelboua          #+#    #+#             */
-/*   Updated: 2025/03/25 15:47:15 by abelboua         ###   ########.fr       */
+/*   Updated: 2025/03/25 23:20:24 by abelboua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,22 +30,17 @@ int	key_handle(int keycode, t_fractol *fractol)
 {
 	if (keycode == XK_Escape)
 		stop_handle(fractol);
-	else if (keycode == XK_Right)
-		fractol->shifting_x -= (0.1 * fractol->mult_zoom);
-	else if (keycode == XK_Left)
-		fractol->shifting_x += (0.1 * fractol->mult_zoom);
-	else if (keycode == XK_Up)
-		fractol->shifting_y -= (0.1 * fractol->mult_zoom);
-	else if (keycode == XK_Down)
-		fractol->shifting_y += (0.1 * fractol->mult_zoom);
 	else if (keycode == XK_equal || keycode == XK_KP_Add)
+	{
 		fractol->iteration_value += 10;
+		fractol_render(fractol);
+	}
 	else if (keycode == XK_minus || keycode == XK_KP_Subtract)
 	{
 		if (fractol->iteration_value > 10)
 			fractol->iteration_value -= 10;
+		fractol_render(fractol);
 	}
-	fractol_render(fractol);
 	return (0);
 }
 

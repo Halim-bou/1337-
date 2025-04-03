@@ -6,7 +6,7 @@
 /*   By: abelboua <abelboua@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 01:43:25 by abelboua          #+#    #+#             */
-/*   Updated: 2025/03/25 03:16:06 by abelboua         ###   ########.fr       */
+/*   Updated: 2025/03/25 23:34:10 by abelboua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,12 @@ void	data_init(t_fractol *fractol)
 {
 	fractol->v_escape = 4;
 	fractol->iteration_value = 50;
-	fractol->shifting_x = 0.0;
-	fractol->shifting_y = 0.0;
 	fractol->mult_zoom = 1.0;
 	fractol->color = 0xFF0000;
 	if (ft_strncmp(fractol->name, "julia", 5) == 0)
 	{
-		fractol->julia_x = atof(fractol->julia_params[0]);
-		fractol->julia_y = atof(fractol->julia_params[1]);
+		fractol->julia_x = ft_atof(fractol->julia_params[0]);
+		fractol->julia_y = ft_atof(fractol->julia_params[1]);
 	}
 }
 
