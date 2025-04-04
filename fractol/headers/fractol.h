@@ -6,7 +6,7 @@
 /*   By: abelboua <abelboua@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 05:45:12 by abelboua          #+#    #+#             */
-/*   Updated: 2025/04/03 08:37:51 by abelboua         ###   ########.fr       */
+/*   Updated: 2025/04/04 22:13:10 by abelboua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,16 @@
 # include "/usr/include/X11/X.h"
 # include "/usr/include/X11/keysym.h"
 
+//size of mlx_window
 # define WIDTH 1000
 # define HEIGHT 1000
 
+//Error messages
+# define ERROR_NUM "ERROR : Non-valide number\n"
 # define ERROR_ARGS "ERROR: Bad arguments: <julia> <n1> <n2> |or| <mandelbort>\n"
 # define ERROR_MLX "Error: Problem with memory allocation!!\n"
 
-//define comlex number as t_cnbr
+//define comlpex number as t_cnbr
 typedef struct s_cnbr
 {
 	double	x;
@@ -42,7 +45,7 @@ typedef struct s_img {
 	char	*addr;
 }				t_img;
 
-//craeting struct to store all fractol data
+//creating struct to store all fractol data
 typedef struct s_fractol
 {
 	t_img	img;
