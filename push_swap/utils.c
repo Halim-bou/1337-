@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abelboua <abelboua@student.1337.ma>        #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-10-28 13:44:54 by abelboua          #+#    #+#             */
-/*   Updated: 2024-10-28 13:44:54 by abelboua         ###   ########.ma       */
+/*   Created: 2025-04-08 16:45:22 by abelboua          #+#    #+#             */
+/*   Updated: 2025-04-08 16:45:22 by abelboua         ###   ########.ma       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/push_swap.h"
+#include "./includes/push_swap.h"
 
-size_t	ft_strlen(const char *s)
+int	ft_isnum(int c)
 {
-	size_t	i;
+	if (c >= '0' && c <= '9')
+		return (1);
+	return (0);
+}
 
-	i = 0;
-	while (s[i] != '\0')
-	{
-		i++;
-	}
-	return (i);
+int	max(int a, int b)
+{
+	if (a > b)
+		return (a);
+	return (b);
 }

@@ -12,73 +12,27 @@
 
 #include "./includes/push_swap.h"
 
-void	*create_list(char **arr, int len)
+int	main(int ac, char **av)
 {
-	int	i;
-	t_list	*head;
+	t_stacks	stacks;
+	int			status;
 
-	head = NULL;
-	i = 0;
-	head = ft_lstnew(arr[i]);
-	i++;
-	while (arr[i])
+	if (ac == 1)
+		return (0);
+	status = stacks_init(&stacks, ac, av);
+	if (status == 0)
+		return (status);
+	if (chack_sorted(stacks.a))
 	{
-		ft_lstadd_back(&head, ft_lstnew(arr[i]));
-		i++;
+		if (stacks.capacity <= 3)
+			status = short_sort_3(stacks);
+		else if (stacks.capacity <= 6)
+			status = short_sort_6(stacks);
+		else
+			status = sort_stack(stacks);
 	}
-	return (head);
-}
-
-int main(int argc, char **argv)
-{
-	char	**nums;
-	t_list	*numbers;
-	int		i;
-
-	i = 0;
-	if (argc <= 1 || !argv[1][0])
-		return (1);
-	else if (argc == 2)
-	{
-		if (!argv[1][0])
-			return (1);
-		nums = ft_split(argv[1]);
-		while (nums[i])
-			i++;
-		numbers = create_list(nums, i);
-	}
-	else
-		numbers = create_list(argv + 1, argc - 1);
-	if (!check_chars(numbers) || !validation(&numbers))
-	{
-		if (nums != NULL)
-		{
-			free_split(&numbers);
-			free(nums);
-		}
-		free_all(&numbers);
-		write(2, "Error\n", 6);
-		return (1);
-	}
-	///////////
-	basic_sort(&numbers);
-	//t_list	*b = NULL;
-	//pb(&numbers, &b, ft_lstsize(numbers), ft_lstsize(b));
-	// pb(&numbers, &numbers, ft_lstsize(numbers), ft_lstsize(numbers));
-	// int tmp = 0;
-	// t_list *ptr = numbers;
-	// while (ptr)
-	// {
-	// 	tmp = ptr->num;
-	// 	printf("|  %i  |\n", tmp);
-	// 	ptr = ptr->next;
-	// }
-	////////////
-	if (nums != NULL)
-	{
-		free_split(&numbers);
-		free(nums);
-	}
-	free_all(&numbers);
+	free_stacks(stacks);
+	if (status == -1)
+		exit(1);
 	return (0);
 }

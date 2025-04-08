@@ -1,40 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_functions.c                                   :+:      :+:    :+:   */
+/*   clean.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abelboua <abelboua@student.1337.ma>        #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-01-17 10:43:02 by abelboua          #+#    #+#             */
-/*   Updated: 2025-01-17 10:43:02 by abelboua         ###   ########.ma       */
+/*   Created: 2025-04-08 16:52:18 by abelboua          #+#    #+#             */
+/*   Updated: 2025-04-08 16:52:18 by abelboua         ###   ########.ma       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/push_swap.h"
 
-void	free_split(t_list **lst)
+void	clean_exit(void *p1, void *p2, void *p3, void *p4)
 {
-	t_list	*ptr;
-
-	ptr = *lst;
-	while(ptr->next)
-	{
-		free(ptr->content);
-		ptr = ptr->next;
-	}
-	free(ptr->content);
-}
-
-void	free_all(t_list **lst)
-{
-	t_list	*ptr;
-
-	ptr = *lst;
-	while ((*lst)->next)
-	{
-		*lst = (*lst)->next;
-		free(ptr);
-		ptr = *lst;
-	}
-	free(*lst);
+	if (p1)
+		free(p1);
+	if (p2)
+		free(p2);
+	if (p3)
+		free(p3);
+	if (p4)
+		free(p4);
+	write(2, "Error!\n", 8);
+	exit(1);
 }

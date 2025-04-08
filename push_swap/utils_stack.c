@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   utils_stack.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abelboua <abelboua@student.1337.ma>        #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-10-30 09:28:28 by abelboua          #+#    #+#             */
-/*   Updated: 2024-10-30 09:28:28 by abelboua         ###   ########.ma       */
+/*   Created: 2025-04-08 16:48:06 by abelboua          #+#    #+#             */
+/*   Updated: 2025-04-08 16:48:06 by abelboua         ###   ########.ma       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/push_swap.h"
+#include "./includes/push_swap.h"
 
-void	ft_lstclear(t_list **lst, void (*del)(void *))
+int	empty_stack(t_stack *stack)
 {
-	t_list	*ptr;
+	return (stack->size == 0);
+}
 
-	if (!lst || !del || !*lst)
-		return ;
-	while (*lst != NULL)
-	{
-		ptr = *lst;
-		del((*lst)->content);
-		(*lst)->prev = NULL;
-		*lst = (*lst)->next;
-		free(ptr);
-	}
-	*lst = NULL;
+int	get_elem(t_stack *stack, int idx)
+{
+	if (idx < 0)
+		return (stack->stack[(stack->rear + idx + stack->capacity)
+				% stack->capacity]);
+	return (stack->stack[(stack->front + idx) % stack->capacity]);
 }
