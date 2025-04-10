@@ -1,7 +1,7 @@
 CC := cc
 CFLAGE := -g -Wall -Wextra -Werror
 HEADERS := $(wildcard includes/*.h)
-SRCS := $(wildcard ./*.c functions_helper/*.c operations/*.c)
+SRCS := $(wildcard *.c)
 OBJS := $(SRCS:.c=.o)
 NAME := push_swap
 

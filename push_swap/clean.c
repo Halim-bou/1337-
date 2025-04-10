@@ -25,3 +25,11 @@ void	clean_exit(void *p1, void *p2, void *p3, void *p4)
 	write(2, "Error!\n", 8);
 	exit(1);
 }
+
+void	free_stacks(t_stacks stack)
+{
+	free(stack.a->stack);
+	free(stack.b->stack);
+	free(stack.a);
+	free(stack.b);
+}

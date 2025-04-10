@@ -22,8 +22,9 @@ int	main(int ac, char **av)
 	status = stacks_init(&stacks, ac, av);
 	if (status == 0)
 		return (status);
-	if (chack_sorted(stacks.a))
+	if (is_not_sorted(stacks.a))
 	{
+		write(1, "passed\n", 7);
 		if (stacks.capacity <= 3)
 			status = short_sort_3(stacks);
 		else if (stacks.capacity <= 6)

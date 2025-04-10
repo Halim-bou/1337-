@@ -12,24 +12,15 @@
 
 #include "../includes/push_swap.h"
 
-void	pa(t_list **lst_a, t_list **lst_b, int size_a, int size_b)
+void	pa(t_stacks stack, int printable)
 {
-	t_list	*ptr;
-
-	if (size_b == 0)
-		return;
-	if (size_b == 1)
-	{
-		ft_lstadd_front(lst_a, *lst_b);
-		*lst_b = NULL;
+	if (printable)
 		write(1, "pa\n", 3);
-		return;
-	}
-	ptr = *lst_b;
-	*lst_b = (*lst_b)->next;
-	(*lst_b)->prev = NULL;
-	ptr->next = *lst_a;
-	ptr->prev = NULL;
-	*lst_a = ptr;
-	write(1, "pa\n", 3);
+	if (stack.b->size == 0)
+		return ;
+	stack.a->front = (stack.a->front -1 + stack.capacity) % stack.capacity;
+	stack.a->stack[stack.a->front] = stack.b->stack[stack.b->front];
+	(stack.a->size)++;
+	(stack.b->size)--;
+	stack.b->front = (stack.b->front + 1) % stack.capacity;
 }

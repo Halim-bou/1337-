@@ -12,6 +12,33 @@
 
 #include "./includes/push_swap.h"
 
+void	stack_allocation(t_stacks *stack, int args_count)
+{
+	stack->a = (t_stack *)malloc(sizeof(t_stack));
+	if (stack->a == NULL)
+		clean_exit(NULL, NULL, NULL, NULL);
+	stack->a->stack = malloc(sizeof(int) * (args_count));
+	if (stack->a->stack == NULL)
+		clean_exit(stack->a, NULL, NULL, NULL);
+	stack->b = (t_stack *)malloc(sizeof(t_stack));
+	if (stack->b == NULL)
+		clean_exit(stack->a->stack, stack->a, NULL, NULL);
+	stack->b->stack = malloc(sizeof(int) * (args_count));
+	if (stack->b->stack == NULL)
+		clean_exit(stack->b, stack->a->stack, stack->a, NULL);
+}
+
+void	set_stack(t_stacks *stack, int elem_count)
+{
+	stack->capacity = elem_count;
+	stack->a->capacity = elem_count;
+	stack->a->size = 0;
+	stack->a->front = 0;
+	stack->b->capacity = elem_count;
+	stack->b->size = 0;
+	stack->b->front = 0;
+}
+
 int	stacks_init(t_stacks *stack, int ac, char **av)
 {
 	int	i;
@@ -23,6 +50,7 @@ int	stacks_init(t_stacks *stack, int ac, char **av)
 		return (0);
 	if (elem_count == -1)
 		clean_exit(NULL, NULL, NULL, NULL);
+	write(1, "here\n", 5);
 	stack_allocation(stack, elem_count);
 	set_stack(stack, elem_count);
 	while (i < ac)

@@ -12,6 +12,7 @@
 
 #include "./includes/push_swap.h"
 
+//not used yet
 int	non_valide_nbr(char *s)
 {
 	if (*s == '-')
@@ -34,7 +35,7 @@ int	all_args_are_valide_1(char *s)
 	{
 		if (s[i] == '-')
 		{
-			if (i > 0 && s[i - 1] != '-')
+			if (i > 0 && s[i - 1] != ' ')
 				return (-1);
 			if (s[i] && !ft_isnum(s[i + 1]))
 				return (-1);
