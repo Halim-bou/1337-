@@ -1,5 +1,5 @@
 CC := cc
-CFLAGE := -g -Wall -Wextra -Werror
+CFLAGS :=  -Wall -Wextra -Werror
 HEADERS := $(wildcard includes/*.h)
 SRCS := $(wildcard *.c && */*.c)
 OBJS := $(SRCS:.c=.o)
@@ -23,4 +23,4 @@ fclean:		clean
 re:			fclean all
 
 .PHONY:		all clean fclean re
-
+.SECONDARY: $(OBJS)
