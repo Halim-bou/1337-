@@ -50,7 +50,6 @@ int	stacks_init(t_stacks *stack, int ac, char **av)
 		return (0);
 	if (elem_count == -1)
 		clean_exit(NULL, NULL, NULL, NULL);
-	write(1, "here\n", 5);
 	stack_allocation(stack, elem_count);
 	set_stack(stack, elem_count);
 	while (i < ac)
